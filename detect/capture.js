@@ -1,16 +1,17 @@
-const request = require('request');
-const MjpegConsumer = require('mjpeg-consumer');
-const FileOnWrite = require('file-on-write');
+const config = require('../config');
+const { getTotalSize, download } = require('../utils');
 
 const capture = () => {
-  const writer = new FileOnWrite({
-    path: './captures',
-    ext: '.jpg'
-  });
+  setInterval(() => {
+    if (getTotalSize('../detect/captures') > config.max_captures_filesize) {
+      console.log('Capture limit...')
+      return;
+    };
 
-  const consumer = new MjpegConsumer();
-
-  request('http://192.168.0.33:8080/?action=stream').pipe(consumer).pipe(writer);
+    download(config.pi_stream, `./captures/${Date.now()}.jpg`, () => {
+      console.log(`${Date.now()}.jpg saved`);
+    });
+  }, config.capture_interval);
 }
 
 module.exports = capture;
