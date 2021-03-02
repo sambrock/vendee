@@ -5,7 +5,7 @@ const { getTotalSize, download } = require('../utils');
 
 const captureEvent = new EventEmitter();
 
-const capture = () => {
+const capture = camera => {
   setInterval(() => {
     if (getTotalSize('../detect/captures') > config.max_captures_filesize) {
       console.log('Capture limit...')
@@ -14,7 +14,7 @@ const capture = () => {
 
     const path = `./captures/${Date.now()}.jpg`;
 
-    download(config.pi_stream, path, () => captureEvent.emit('capture', path));
+    download(camera.stream, path, () => captureEvent.emit('capture', path, camera.id));
   }, config.capture_interval);
 }
 

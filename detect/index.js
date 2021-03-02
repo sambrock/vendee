@@ -1,8 +1,11 @@
 const fs = require('fs');
+
 const tf = require('@tensorflow/tfjs-node');
 const cocoSsd = require('@tensorflow-models/coco-ssd');
 
 const { capture, captureEvent } = require('./capture');
+const { processPredictions } = require('./predictions');
+const { cameras } = require('../config');
 
 let model;
 
@@ -11,9 +14,9 @@ const readImage = path => {
   return tf.node.decodeJpeg(imageBuffer);
 }
 
-const detect = async image => {
+const detect = async (image, camId) => {
   const predictions = await model.detect(image);
-  return predictions;
+  processPredictions(predictions, camId);
 }
 
 const removeImage = path => {
@@ -29,14 +32,13 @@ const main = async () => {
   model = await cocoSsd.load();
 
   // Start capture
-  capture();
+  cameras.forEach(c => capture(c));
 
   // Listen for capture event
-  captureEvent.addListener('capture', async path => {
+  captureEvent.addListener('capture', async (path, camId) => {
     const image = readImage(path);
 
-    const predictions = await detect(image);
-    console.log(path, predictions);
+    detect(image, camId);
 
     removeImage(path);
   });
