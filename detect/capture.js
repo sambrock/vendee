@@ -1,5 +1,9 @@
+const { EventEmitter } = require('events');
+
 const config = require('../config');
 const { getTotalSize, download } = require('../utils');
+
+const captureEvent = new EventEmitter();
 
 const capture = () => {
   setInterval(() => {
@@ -8,10 +12,10 @@ const capture = () => {
       return;
     };
 
-    download(config.pi_stream, `./captures/${Date.now()}.jpg`, () => {
-      console.log(`${Date.now()}.jpg saved`);
-    });
+    const path = `./captures/${Date.now()}.jpg`;
+
+    download(config.pi_stream, path, () => captureEvent.emit('capture', path));
   }, config.capture_interval);
 }
 
-module.exports = capture;
+module.exports = { capture, captureEvent };
