@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "dev": "nodemon server"
+    "server": "nodemon server",
+    "dev": "concurrently \"npm run server\" \"cd client && npm start BROWSER=none \" \"cd client && wait-on http://localhost:3000 && electron .\""
   },
   "keywords": [],
   "author": "",
@@ -15,12 +16,15 @@
     "@tensorflow/tfjs-node": "^3.1.0",
     "@tensorflow/tfjs-node-gpu": "^3.1.0",
     "axios": "^0.21.1",
+    "concurrently": "^6.0.0",
     "dotenv": "^8.2.0",
+    "electron": "^12.0.0",
     "express": "^4.17.1",
     "file-on-write": "^1.1.1",
     "mjpeg-consumer": "^2.0.0",
     "mongoose": "^5.11.18",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "wait-on": "^5.2.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
