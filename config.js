@@ -4,9 +4,7 @@ const config = {
   ],
 
   max_captures_filesize: 524288000, // 500 MB
-  capture_interval: 1000, // .5 seconds
-
-  detect_interval: 5000, // 5 seconds
+  capture_interval: 1000,
 };
 
 module.exports = config;
