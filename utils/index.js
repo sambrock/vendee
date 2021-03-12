@@ -36,4 +36,12 @@ const download = function (uri, filename, callback) {
   });
 };
 
-module.exports = { getAllFiles, getTotalSize, download };
+const removeImage = path => {
+  try {
+    fs.unlinkSync(path)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+module.exports = { getAllFiles, getTotalSize, download, removeImage };

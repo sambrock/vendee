@@ -1,20 +1,22 @@
 const axios = require('axios');
-const { EventEmitter } = require('events');
-
-const eventEmitter = new EventEmitter();
 
 const processPredictions = (predictions, camId) => {
-  if (!predictions) {
-    console.log(predictions);
-    return;
-  };
+  // if (!predictions) {
+  //   console.log(predictions);
+  //   return;
+  // };
 
-  // Occupancy
-  const arr = predictions.filter(p => p.class === 'person');
+  // // Occupancy
+  // const arr = predictions.filter(p => p.class === 'person');
 
-  axios({ method: 'post', url: 'http://localhost:3001/api/occupancy/', data: { camId, count: arr.length } });
+  // axios({ method: 'post', url: 'http://localhost:3001/api/occupancy/', data: { camId, count: arr.length } });
 
-  console.log(arr.length);
+  // console.log(arr.length);
+
+  predictions.map(p => {
+    // console.log(p.kept, p.dataId);
+    // console.log(p.kept, p.dataId);
+  })
 }
 
 module.exports = { processPredictions };

@@ -1,3 +1,5 @@
 node_modules
 detect/captures
 .env
+
+detect/models
