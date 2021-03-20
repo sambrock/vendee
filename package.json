@@ -20,10 +20,12 @@
     "electron": "^12.0.0",
     "express": "^4.17.1",
     "file-on-write": "^1.1.1",
+    "lodash": "^4.17.21",
     "luxon": "^1.26.0",
     "mjpeg-consumer": "^2.0.0",
     "mongoose": "^5.11.18",
     "request": "^2.88.2",
+    "twin.macro": "^2.3.0",
     "wait-on": "^5.2.1"
   },
   "devDependencies": {
