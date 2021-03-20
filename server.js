@@ -9,10 +9,20 @@ app.use(express.json());
 app.use(cors());
 
 // Use routes
-app.use('/api/occupancy', require('./routes/api/occupancy'));
+app.use('/api/traffic', require('./routes/api/traffic'));
+
+// Test routes
+app.use('/test', require('./routes/test/test'));
+
+const dbConfig = () => {
+  if(process.env.NODE_ENV === 'prod') return process.env.DB_CONFIG;
+  if(process.env.NODE_ENV === 'dev') return process.env.LOCAL_DB_CONFIG;
+  if(process.env.NODE_ENV === 'test') return process.env.LOCAL_DB_CONFIG_TEST;
+  console.error('NODE_ENV not set.');
+}
 
 // Connect to MongoDB
-mongoose.connect(process.env.LOCAL_DB_CONFIG, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(dbConfig(), { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Error', err));
 
