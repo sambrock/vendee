@@ -11,7 +11,7 @@ const config = {
   },
 
   dtype: 'int32',
-  min_score: 0.5,
+  min_score: 0.8,
   max_results: 50,
   iou_threshold: 0.1,
 

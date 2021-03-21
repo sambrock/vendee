@@ -10,6 +10,7 @@ app.use(cors());
 
 // Use routes
 app.use('/api/traffic', require('./routes/api/traffic'));
+app.use('/api/products', require('./routes/api/products'));
 
 // Test routes
 app.use('/test', require('./routes/test/test'));

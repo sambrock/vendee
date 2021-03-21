@@ -1,22 +1,20 @@
 const axios = require('axios');
 
-const processPredictions = (predictions, camId) => {
-  // if (!predictions) {
-  //   console.log(predictions);
-  //   return;
-  // };
+const processProducts = (predictions) => {
+  if (predictions.length === 0) return;
 
-  // // Occupancy
-  // const arr = predictions.filter(p => p.class === 'person');
-
-  // axios({ method: 'post', url: 'http://localhost:3001/api/occupancy/', data: { camId, count: arr.length } });
-
-  // console.log(arr.length);
-
-  predictions.map(p => {
-    // console.log(p.kept, p.dataId);
-    // console.log(p.kept, p.dataId);
+  // Save interaction
+  predictions.forEach(async p => {
+    await axios({ method: 'post', url: `http://localhost:3001/api/products/${p.id}` });
   })
+
+  console.log(predictions);
 }
 
-module.exports = { processPredictions };
+const processTraffic = (predictions, camId) => {
+  if (predictions.length === 0) return;
+
+  // console.log(predictions);
+}
+
+module.exports = { processProducts, processTraffic };

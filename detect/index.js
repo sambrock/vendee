@@ -2,7 +2,7 @@ const { cameras } = require('../config');
 const { removeImage } = require('../utils');
 const { capture, captureEvent } = require('./capture');
 const { loadSavedModel, getImageTensor, getPredictions } = require('./detect');
-const { processPredictions } = require('./predictions');
+const { processProducts, processTraffic } = require('./predictions');
 
 (async () => {
   // Load models
@@ -17,10 +17,11 @@ const { processPredictions } = require('./predictions');
     const tensor = getImageTensor(path);
 
     const people = await getPredictions(COCO_SSD, 1, tensor);
-    const objects = await getPredictions(CUSTOM, 2, tensor);
+    const products = await getPredictions(CUSTOM, 2, tensor);
 
     removeImage(path);
 
-    console.log([...people, ...objects]);
+    processProducts(products);
+    processTraffic(people, camId);
   });
 })();
