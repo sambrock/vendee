@@ -14,8 +14,6 @@ const StyledHeatMapBarDiv = styled.div`
   background: linear-gradient(90deg, rgb(249,191,194) 0%, rgb(237,66,73) 100%);
 `;
 
-const cams = 10;
-
 const HeatMap = () => {
   const [avgTimes, setAvgTimes] = useState([]);
 
@@ -28,7 +26,7 @@ const HeatMap = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      const instance = svgPanZoom(svgRef.current).zoomOut(100);
+      svgPanZoom(svgRef.current).zoomOut(100);
     }, 1000)
   }, [svgRef])
 

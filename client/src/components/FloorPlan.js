@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import MouseoverInfo from './MouseoverInfo';
+import HeatMapHoverInfo from './HeatMapHoverInfo';
 
 const StyledPath = styled.path`
   fill: ${props => props.theme.heatmapColors[props.color]};
@@ -28,7 +28,7 @@ const FloorPlan = ({ svgRef, times }) => {
 
       return { id: t.camId, time: t.times.seconds, string: t.times.string, color: getColor(t.times.seconds) }
     }))
-  }, []);
+  }, [times]);
 
   const handleHover = (e) => {
     setPos([e.pageX - 320, e.pageY - 180]);
@@ -43,7 +43,7 @@ const FloorPlan = ({ svgRef, times }) => {
 
   return (
     <>
-      <MouseoverInfo x={pos[0]} y={pos[1]} data={active} isVisible={isVisible} />
+      <HeatMapHoverInfo x={pos[0]} y={pos[1]} data={active} isVisible={isVisible} />
       <svg className="" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" ref={svgRef} onMouseMove={(e) => handleHover(e)}>
         <defs>
           <style>
