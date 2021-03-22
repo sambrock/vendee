@@ -107,6 +107,14 @@ const GlobalStyle = createGlobalStyle`
   .smooth-hide {
     transition: opacity .8s ease-out;
   }
+
+  .MuiDataGrid-root {
+    border: none !important;
+  }
+
+  .MuiDataGrid-root .MuiDataGrid-row.Mui-selected {
+    background-color: var(--blue-opacity) !important;
+  }
 `;
 
 export default GlobalStyle;
