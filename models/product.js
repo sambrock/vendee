@@ -7,6 +7,24 @@ const interactionSchema = new mongoose.Schema({
   }
 });
 
+const dynamicPricingSchema = new mongoose.Schema({
+  retailer: {
+    type: String,
+    required: true
+  },
+  url: {
+    type: String,
+    required: true
+  },
+  element: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number
+  }
+});
+
 const productSchema = new mongoose.Schema({
   productId: {
     type: Number,
@@ -21,6 +39,7 @@ const productSchema = new mongoose.Schema({
     required: true
   },
   interactions: [interactionSchema],
+  dynamicPricing: [dynamicPricingSchema],
 });
 
 module.exports = mongoose.model('product', productSchema);
