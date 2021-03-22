@@ -6,6 +6,7 @@ import Nav from './components/layout/Nav';
 import Dashboard from './pages/Dashboard';
 import Traffic from './pages/Traffic';
 import HeatMap from './pages/HeatMap';
+import Products from './pages/Products';
 
 import GlobalStyle from './styles/GlobalStyles';
 import './styles/tailwind.css';
@@ -21,6 +22,7 @@ function App() {
           <Header />
           <Switch>
             <Route path="/heat-map" component={HeatMap} />
+            <Route path="/products" component={Products} />
             <Route path="/traffic" component={Traffic} />
             <Route exact path="/" component={Dashboard} />
           </Switch>
