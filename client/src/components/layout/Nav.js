@@ -19,7 +19,7 @@ export default function Nav() {
   const links = [
     { pathname: '/', icon: 'dashboard', label: 'Dashboard' },
     { pathname: '/traffic', icon: 'groups', label: 'Traffic' },
-    { pathname: '/products', icon: 'category', label: 'Products' },
+    { pathname: '/products', icon: 'sell', label: 'Products' },
     { pathname: '/heat-map', icon: 'whatshot', label: 'Heat Map' },
     { pathname: '/live-cameras', icon: 'videocam', label: 'Live Camera' },
   ]
