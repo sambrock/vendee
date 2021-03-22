@@ -12,9 +12,7 @@ const TrafficHighest = () => {
       .then(res => setTraffic(res.data));
   }, [])
 
-  // console.log(traffic);
-
-  // if (!traffic) <div>test</div>
+  if (!traffic) return <div>test</div>;
 
   return (
     <TopPanel icon="groups">

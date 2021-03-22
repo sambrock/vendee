@@ -102,13 +102,13 @@ router.get('/today', async (req, res) => {
   const t1 = getTotalCountPerDay(today);
   const t2 = getTotalCountPerDay(yesterday);
 
-  let change = (t1 - t2) / ((t1 + t2) / 2) * 100;
+  const change = (t1 - t2) / ((t1 + t2) / 2) * 100;
 
   res.send({ count: t1, change: Math.round(change), direction: Math.sign(change) });
 });
 
-// @route   
-// @desc    
+// @route   GET api/traffic/heat-map
+// @desc    Get average standing time from each camera
 // @access  Local network
 router.get('/heat-map', async (req, res) => {
   const day = DateTime.local().toISODate();
@@ -126,7 +126,5 @@ router.get('/heat-map', async (req, res) => {
 
   res.send(heatMap);
 });
-
-
 
 module.exports = router;

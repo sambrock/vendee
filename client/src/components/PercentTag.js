@@ -7,7 +7,7 @@ const StyledChangeDiv = styled.div`
 `;
 
 const PercentTag = ({ value, direction }) => (
-  <StyledChangeDiv direction={direction === 1 ? 1 : 2}>
+  <StyledChangeDiv direction={direction === 1 || direction === 0 ? 1 : 2}>
   {direction === 1 ? '+' : ''}{value}%
   </StyledChangeDiv>
 )
