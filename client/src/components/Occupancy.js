@@ -9,21 +9,21 @@ export default function Occupancy() {
   useEffect(() => {
     const interval = setInterval(async () => {
       const result = await axios(
-        'http://localhost:3001/api/occupancy/',
+        'http://localhost:3001/api/traffic/occupancy',
       );
 
       setOccupancy(result.data);
     }, 1000);
     return () => clearInterval(interval);
-  })
+  }, [])
 
-  // if (!occupancy) return <div></div>; // SKELLY CONTENT
+  if (!occupancy) return <div></div>; // SKELLY CONTENT
 
   return (
     <TopPanel bg="bg-blue" icon="social_distance">
       <div className="font-bold text-xl text-whiteOpacity">Live Occupancy</div>
       <div className="col-start-0 row-start-2 mt-2 flex items-baseline">
-        <div className="text-main font-bold text-white">20</div>
+        <div className="text-main font-bold text-white">{occupancy.count}</div>
         <span className="font-semibold text-whiteOpacity ml-3 text-xl">/ 40</span>
       </div>
     </TopPanel>

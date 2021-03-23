@@ -13,13 +13,14 @@ const cams = 10;
 // @route   POST api/traffic
 // @desc    Add camera traffic
 // @access  Local network
-router.post('/', async (req, res) => {
-  const { camId, count, time, day, hour } = req.body;
+router.post('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { count, time, day, hour } = req.body;
 
-  const data = await Traffic.findOne({ camId }).sort({ _id: -1 });
-  if (data) { if (data.count === count) return res.sendStatus(208); }
+  const data = await Traffic.findOne({ camId: id }).sort({ _id: -1 });
+  if (data) { if (data.count === count) return res.sendStatus(208); } // Skip if same as previous count
 
-  const traffic = new Traffic({ camId, count, time, day, hour });
+  const traffic = new Traffic({ camId: id, count, time, day, hour });
   traffic.save();
 
   res.sendStatus(200);
@@ -32,8 +33,8 @@ router.get('/occupancy', async (req, res) => {
   let occupancy = [];
 
   const getData = async () => {
-    return Promise.all(cameras.map(async c => {
-      const data = await Traffic.findOne({ camId: c }).sort({ _id: -1 });
+    return Promise.all(cameras.map(async (c, i) => {
+      const data = await Traffic.findOne({ camId: i }).sort({ _id: -1 });
       if (!data) return;
 
       occupancy.push(data);

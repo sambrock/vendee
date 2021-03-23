@@ -16,7 +16,7 @@ const config = {
   iou_threshold: 0.1,
 
   cameras: [
-    { id: 'cam_1', stream: 'http://192.168.0.33:8080/?action=snapshot' }
+    { id: 1, stream: 'http://192.168.0.33:8080/?action=snapshot' },
   ],
 
   max_captures_filesize: 524288000, // 500 MB
