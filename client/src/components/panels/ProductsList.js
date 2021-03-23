@@ -4,6 +4,7 @@ import { DataGrid } from '@material-ui/data-grid';
 
 import RetailerPriceTagList from '../RetailerPriceTagList';
 import RetailerPriceMatchTag from '../RetailerPriceMatchTag';
+import PriceInput from '../PriceInput';
 
 const ProductsList = () => {
   const [products, setProducts] = useState([]);
@@ -11,15 +12,15 @@ const ProductsList = () => {
   useEffect(() => {
     axios('http://localhost:3001/api/products')
       .then(res => setProducts(res.data.map(p => {
-        return { id: p.productId, name: p.name, price: p.price, interactions: p.interactions.length, dynamicPricing: p.dynamicPricing, change: p.change, direction: p.direction }
+        return { ...p, id: p.productId, interactions: p.interactions.length }
       }).sort((a, b) => a.id - b.id)));
   }, []);
-
+  
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'name', headerName: 'Name', width: 300 },
     { field: 'interactions', headerName: 'Interactions', width: 130 },
-    { field: 'price', headerName: 'Price', width: 100, renderCell: (p) => <span>{new Intl.NumberFormat('en-EN', { style: 'currency', currency: 'GBP' }).format(p.value)}</span> },
+    { field: 'price', headerName: 'Price', width: 100, renderCell: (p) => <PriceInput productId={p.row.id} price={p.value} /> },
     {
       field: 'change',
       headerName: 'Price Matched?',

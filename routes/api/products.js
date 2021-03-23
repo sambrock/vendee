@@ -1,4 +1,5 @@
 const express = require('express');
+const parseNum = require('parse-num')
 
 const Product = require('../../models/product');
 
@@ -24,6 +25,22 @@ router.get('/', async (req, res) => {
   })
 
   res.send(test);
+});
+
+// @route   
+// @desc    
+// @access  Local network
+router.put('/update/:id', async (req, res) => {
+  const { id } = req.params;
+  const { price } = req.body;
+
+  const product = await Product.findOne({ productId: id });
+
+  product.price = parseNum(price);
+
+  await product.save();
+
+  res.sendStatus(200);
 });
 
 // @route   
@@ -72,12 +89,15 @@ router.get('/trending-right-now', async (req, res) => {
     .map(p => p.interactions.length)
     .reduce((a, b) => a + b, 0);
 
+  if(!sorted[0]) return res.sendStatus(401);
+
   const t1 = sorted[0].interactions.length;
   const t2 = sum / sorted.length;
 
   const change = (t1 - t2) / ((t1 + t2) / 2) * 100;
 
   res.send({ details: sorted[0], change: Math.round(change), direction: Math.sign(change) });
+  
 });
 
 // @route   POST api/:id/interaction

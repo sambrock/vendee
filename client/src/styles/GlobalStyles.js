@@ -93,6 +93,18 @@ const GlobalStyle = createGlobalStyle`
     grid-template-rows: 100px auto;
   }
 
+  input {
+    border: none;
+    background: none;
+    cursor: pointer;
+
+    &:focus {
+      background: var(--black-opacity-2);
+      border: none;
+      outline: none;
+    }
+  }
+
   .border-red {
     border: 1px red solid;
   }
