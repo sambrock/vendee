@@ -21,7 +21,6 @@ export default function Nav() {
     { pathname: '/traffic', icon: 'groups', label: 'Traffic' },
     { pathname: '/products', icon: 'sell', label: 'Products' },
     { pathname: '/heat-map', icon: 'whatshot', label: 'Heat Map' },
-    { pathname: '/live-cameras', icon: 'videocam', label: 'Live Camera' },
   ]
 
   return (
