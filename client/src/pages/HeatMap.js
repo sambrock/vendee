@@ -17,20 +17,12 @@ const StyledHeatMapBarDiv = styled.div`
 const HeatMap = () => {
   const [avgTimes, setAvgTimes] = useState([]);
 
-  const svgRef = useRef();
-
   useEffect(() => {
     axios('http://localhost:3001/api/traffic/heat-map')
-      .then(res => setAvgTimes(res.data.sort((a,b) => a.times.seconds - b.times.seconds)));
+      .then(res => setAvgTimes(res.data.sort((a, b) => a.times.seconds - b.times.seconds)));
   }, [])
 
-  useEffect(() => {
-    setTimeout(() => {
-      svgPanZoom(svgRef.current).zoomOut(100);
-    }, 1000)
-  }, [svgRef])
-
-  if(avgTimes.length === 0) return <div></div>;
+  if (avgTimes.length === 0) return <div></div>;
 
   return (
     <StyledPageContainerDiv className="px-6 col-start-2 row-start-2 mb-6">
@@ -46,7 +38,7 @@ const HeatMap = () => {
         </div>
       </div>
       <div className="relative rounded-md bg-grey">
-        <FloorPlan svgRef={svgRef} times={avgTimes} />
+        <FloorPlan times={avgTimes} />
       </div>
     </StyledPageContainerDiv>
   )

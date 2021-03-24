@@ -12,7 +12,6 @@ const HeatMapHoverInfo = ({ x, y, data, isVisible }) => {
     <div className={`absolute rounded-md border-grey border border-solid ${isVisible ? '' : 'opacity-0'} smooth-hide`} style={{ transform: `translateX(${x}px) translateY(${y}px)` }}>
       <div className="p-2 bg-offwhite rounded-t-md border-b border-solid border-grey border-0">
         <span className="font-medium text-blackOpacity">Cam {data.camId}</span>
-
       </div>
       <div className="flex items-center p-2 bg-white opacity-90 rounded-b-md">
         <StyledLegend color={data.color} />

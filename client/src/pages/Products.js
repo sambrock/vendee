@@ -7,6 +7,7 @@ import ProductsTrending from '../components/panels/ProductsTrending';
 import ProductsUnderperforming from '../components/panels/ProductsUnderperforming';
 import ProductsTrendingRightNow from '../components/panels/ProductTrendingRightNow';
 import ProductUnderperforming from '../components/panels/ProductUnderperforming';
+import Occupancy from "../components/Occupancy";
 
 const StyledProductsContainerDiv = styled.main`
   grid-template-rows: 9rem 1fr 1fr;
@@ -16,6 +17,7 @@ const Products = () => {
   return (
     <StyledProductsContainerDiv className="mx-6 grid grid-cols-4 grid-rows-4 gap-6 mb-6">
       <div className="flex h-36 col-span-4">
+        <Occupancy />
         <ProductsTrendingRightNow />
         <ProductUnderperforming />
         <PriceMatch />

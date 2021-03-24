@@ -38,6 +38,12 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  shelfId: {
+    type: Number,
+  },
+  stock: {
+    type: Number
+  },
   interactions: [interactionSchema],
   dynamicPricing: [dynamicPricingSchema],
 });
