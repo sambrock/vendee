@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import axios from 'axios';
-import parseNum from 'parse-num';
 
 const PriceInput = ({ productId, price }) => {
   const [value, setValue] = useState(price);

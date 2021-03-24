@@ -1,5 +1,7 @@
 const express = require('express');
 const parseNum = require('parse-num')
+const { DateTime } = require('luxon');
+
 
 const Product = require('../../models/product');
 
@@ -27,8 +29,8 @@ router.get('/', async (req, res) => {
   res.send(test);
 });
 
-// @route   
-// @desc    
+// @route   PUT api/products/:id 
+// @desc    Update product price
 // @access  Local network
 router.put('/update/:id', async (req, res) => {
   const { id } = req.params;
@@ -43,70 +45,56 @@ router.put('/update/:id', async (req, res) => {
   res.sendStatus(200);
 });
 
-// @route   
-// @desc    
+// @route   GET api/products/trending
+// @desc    Get the most interacted with products for the last hour
 // @access  Local network
 router.get('/trending', async (req, res) => {
-  const timestamp = new Date(Date.now() - 24 * 60 * 60 * 1000);
-  const hexSeconds = Math.floor(timestamp / 1000).toString(16);
+  const products = await Product.find({})
 
-  const constructedObjectId = ObjectID(hexSeconds + "0000000000000000");
+  const date = DateTime.local().minus({ hours: 1 }).toMillis();
 
-  const products = await Product.find({ "interactions._id": { "$gt": constructedObjectId } })
+  const trending = products
+    .map(p => {
+      return { id: p.productId, name: p.name, interactions: p.interactions.filter(interaction => interaction.createdAt > date).length };
+    })
+    .filter(t => t.interactions !== 0)
+    .sort((a, b) => b.interactions - a.interactions)
+    .splice(0, 5); // Limit to 5
 
-  res.send(products);
+  res.send(trending);
 });
 
-// @route   
-// @desc    
+// @route   GET api/products/underperforming
+// @desc    Get the least interacted with products for the last hour
 // @access  Local network
 router.get('/underperforming', async (req, res) => {
-  const timestamp = new Date(Date.now() - 24 * 60 * 60 * 1000);
-  const hexSeconds = Math.floor(timestamp / 1000).toString(16);
+  const products = await Product.find({})
 
-  const constructedObjectId = ObjectID(hexSeconds + "0000000000000000");
+  const date = DateTime.local().minus({ hours: 24 }).toMillis();
 
-  const products = await Product.find({ "_id": { "$gt": constructedObjectId } })
-  products.sort((a, b) => a.interactions.length - b.interactions.length); // NEED TO FIX BY ADDING AT LEAST 1 INTERACTION PER PRODUCT
+  const underperforming = products
+    .map(p => {
+      return { id: p.productId, name: p.name, interactions: p.interactions.filter(interaction => interaction.createdAt > date).length };
+    })
+    .sort((a, b) => a.interactions - b.interactions)
+    .splice(0, 5); // Limit to 5
 
-  res.send(products);
+  res.send(underperforming);
 });
 
-// @route   
-// @desc    
-// @access  Local network
-router.get('/trending-right-now', async (req, res) => {
-  const timestamp = new Date(Date.now() - 1 * 60 * 60 * 1000);
-  const hexSeconds = Math.floor(timestamp / 1000).toString(16);
-
-  const constructedObjectId = ObjectID(hexSeconds + "0000000000000000");
-
-  const products = await Product.find({ "interactions._id": { "$gt": constructedObjectId } })
-
-  const sorted = products.sort((a, b) => b.interactions.length - a.interactions.length);
-
-  const sum = sorted
-    .map(p => p.interactions.length)
-    .reduce((a, b) => a + b, 0);
-
-  if(!sorted[0]) return res.sendStatus(401);
-
-  const t1 = sorted[0].interactions.length;
-  const t2 = sum / sorted.length;
-
-  const change = (t1 - t2) / ((t1 + t2) / 2) * 100;
-
-  res.send({ details: sorted[0], change: Math.round(change), direction: Math.sign(change) });
-  
-});
-
-// @route   POST api/:id/interaction
-// @desc    
+// @route   POST api/products/:id/interaction
+// @desc    Add an interaction for a product
 // @access  Local network
 router.post('/:id/interaction', async (req, res) => {
   const { id } = req.params;
 
   const product = await Product.findOne({ productId: id });
+
+  const previousInteraction = product.interactions[product.interactions.length - 1];
+
+  if (previousInteraction) {
+    if (DateTime.fromJSDate(previousInteraction.createdAt).toMillis() > DateTime.local().minus({ seconds: 20 }).toMillis()) return res.sendStatus(208); // If interaction created in the last 20 seconds, skip
+  }
 
   product.interactions.push({ interaction: true });
   await product.save();
@@ -114,8 +102,8 @@ router.post('/:id/interaction', async (req, res) => {
   res.send(product);
 });
 
-// @route   
-// @desc    
+// @route   PUT api/products/:id/dynamic-pricing
+// @desc    Update the retailer price listed in dynamic pricing
 // @access  Local network
 router.put('/:id/dynamic-pricing', async (req, res) => {
   const { id } = req.params;

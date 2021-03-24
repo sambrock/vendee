@@ -1,25 +1,26 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { DataGrid } from '@material-ui/data-grid';
 
 const ProductsUnderperforming = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     axios('http://localhost:3001/api/products/underperforming')
-      .then(res => setProducts(res.data.map(p => {
-        return { id: p.productId, name: p.name, interactions: p.interactions.length }
-      })))
+      .then(res => setProducts(res.data))
   }, [])
-
-  const columns = [
-    { field: 'name', headerName: 'Name', width: 250 },
-    { field: 'interactions', headerName: ' ', width: 50 },
-  ];
 
   return (
     <div className="" style={{ height: '90%' }}>
-      <DataGrid autoPageSize={true} hideFooterPagination={true} autoHeight={false} rows={products} columns={columns} pageSize={5} />
+      <div className="py-3 px-2 flex text-sm  table-border">
+          <span className="font-semibold mr-auto text-blackOpacity">Name</span>
+          <span className="ml-auto font-semibold text-blackOpacity">Interactions</span>
+        </div>
+      {products.map(p => (
+        <div className="py-3 px-2 flex justify-between text-sm table-border">
+          <span>{p.name}</span>
+          <span className="font-semibold">{p.interactions}</span>
+        </div>
+      ))}
     </div>
   )
 }
