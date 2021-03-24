@@ -33,6 +33,7 @@ const GlobalStyle = createGlobalStyle`
     --grey: #e3e3e3;
     --green: #00B300;
     --red: #FF3333;
+    --default-black: rgba(0, 0, 0, 0.87);
     --black-opacity: rgba(0,0,0,.65);
     --black-opacity-2: rgba(0,0,0,.05);
     --blue-opacity: rgba(74,79,246,.15);
@@ -73,9 +74,11 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    color: var(--black);
+    color: var(--default-black);
     font-family: var(--font-sans);
     font-size: var(--fz-lg);
+    font-weight: 400;
+    letter-spacing: 0.01071em;
     line-height: 1.3;
     background: var(--off-white);
   }
@@ -97,6 +100,7 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     background: none;
     cursor: pointer;
+    font-family: var(--font-sans);
 
     &:focus {
       background: var(--black-opacity-2);
@@ -122,10 +126,20 @@ const GlobalStyle = createGlobalStyle`
 
   .MuiDataGrid-root {
     border: none !important;
+    font-family: var(--font-sans) !important;
+    font-size: var(--fz-sm) !important;
   }
 
   .MuiDataGrid-root .MuiDataGrid-row.Mui-selected {
     background-color: var(--blue-opacity) !important;
+  }
+
+  .default-border {
+    border: 1px solid var(--grey); 
+  }
+
+  .table-border {
+    border-bottom: 1px solid var(--grey);
   }
 `;
 
