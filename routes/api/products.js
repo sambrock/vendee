@@ -2,7 +2,6 @@ const express = require('express');
 const parseNum = require('parse-num')
 const { DateTime } = require('luxon');
 
-
 const Product = require('../../models/product');
 
 const router = express.Router();
