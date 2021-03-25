@@ -24,7 +24,7 @@ export default function Nav() {
   ]
 
   return (
-    <StyledNav className="row-span-2 h-screen w-60 text-blue">
+    <StyledNav className="fixed  row-span-2 h-screen w-60 text-blue">
       <div className="p-6 logo">
         <img src={Logo} alt="Logo" />
       </div>

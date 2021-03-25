@@ -91,9 +91,14 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .App {
-    display: grid;
-    grid-template-columns: 320px auto;
-    grid-template-rows: 100px auto;
+    /* display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 100px auto; */
+    
+  }
+
+  .page-container {
+    margin-left: 320px;
   }
 
   input {

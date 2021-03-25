@@ -19,13 +19,15 @@ function App() {
         <ThemeProvider theme={theme}>
           <GlobalStyle />
           <Nav />
-          <Header />
-          <Switch>
-            <Route path="/heat-map" component={HeatMap} />
-            <Route path="/products" component={Products} />
-            <Route path="/traffic" component={Traffic} />
-            <Route exact path="/" component={Dashboard} />
-          </Switch>
+          <div className="page-container">
+            <Header />
+            <Switch>
+              <Route path="/heat-map" component={HeatMap} />
+              <Route path="/products" component={Products} />
+              <Route path="/traffic" component={Traffic} />
+              <Route exact path="/" component={Dashboard} />
+            </Switch>
+          </div>
         </ThemeProvider>
       </Router>
     </div>
