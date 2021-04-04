@@ -22,7 +22,7 @@ function App() {
           <div className="page-container">
             <Header />
             <Switch>
-              <Route path="/heat-map" component={HeatMap} />
+              <Route path="/dwell-time" component={HeatMap} />
               <Route path="/products" component={Products} />
               <Route path="/traffic" component={Traffic} />
               <Route exact path="/" component={Dashboard} />
