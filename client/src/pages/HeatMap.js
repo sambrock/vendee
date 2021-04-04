@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 
+import { getDwellTime } from '../api';
 import FloorPlan from '../components/FloorPlan';
 
 const StyledPageContainerDiv = styled.div`
@@ -18,7 +18,7 @@ const HeatMap = () => {
   const [dwellTimes, setDwellTimes] = useState([]);
 
   useEffect(() => {
-    axios('http://localhost:3001/api/traffic/dwell-time')
+    getDwellTime()
       .then(res => setDwellTimes(res.data));
   }, [])
 
