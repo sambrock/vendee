@@ -20,7 +20,7 @@ export default function Nav() {
     { pathname: '/', icon: 'dashboard', label: 'Dashboard' },
     { pathname: '/traffic', icon: 'groups', label: 'Traffic' },
     { pathname: '/products', icon: 'sell', label: 'Products' },
-    { pathname: '/heat-map', icon: 'whatshot', label: 'Heat Map' },
+    { pathname: '/dwell-time', icon: 'whatshot', label: 'Dwell Time' },
   ]
 
   return (
