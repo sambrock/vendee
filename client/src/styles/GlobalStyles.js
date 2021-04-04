@@ -126,13 +126,13 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .smooth-hide {
-    transition: opacity .8s ease-out;
+    transition: opacity .3s ease;
   }
 
   .MuiDataGrid-root {
     border: none !important;
     font-family: var(--font-sans) !important;
-    font-size: var(--fz-sm) !important;
+    font-size: var(--fz-md) !important;
   }
 
   .MuiDataGrid-root .MuiDataGrid-row.Mui-selected {

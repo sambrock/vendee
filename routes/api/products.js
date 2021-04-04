@@ -5,7 +5,6 @@ const { DateTime } = require('luxon');
 const Product = require('../../models/product');
 
 const router = express.Router();
-const ObjectID = require('mongodb').ObjectID;
 
 // @route   GET api/products
 // @desc    List all products
