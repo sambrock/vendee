@@ -3,23 +3,18 @@ const mongoose = require('mongoose');
 mongoose.pluralize(null);
 
 const trafficSchema = new mongoose.Schema({
-  camId: {
+  cam_id: {
     type: Number,
     required: true
   },
   count: {
     type: Number,
-    require: true
+    required: true
   },
-  time: {
-    type: Date,
-    default: Date.now
-  },
-  day: {
-    type: String,
-  },
-  hour: {
+  created_at: {
     type: Number,
+    required: true,
+    default: Date.now()
   },
 });
 
