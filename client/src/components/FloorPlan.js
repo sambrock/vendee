@@ -30,9 +30,9 @@ const FloorPlan = ({ times }) => {
 
   useEffect(() => {
     axios('http://localhost:3001/api/products')
-    .then(res => setProducts(res.data.map(p => {
-      return { ...p, id: p.productId, interactions: p.interactions.length }
-    }).sort((a, b) => a.id - b.id)));
+      .then(res => setProducts(res.data.map(p => {
+        return { ...p, id: p.productId, interactions: p.interactions.length }
+      }).sort((a, b) => a.id - b.id)));
   }, []);
 
   useEffect(() => {
@@ -53,6 +53,8 @@ const FloorPlan = ({ times }) => {
     }))
   }, [times]);
 
+  console.log(times);
+
   const handleHover = (e) => {
     setPos([e.pageX - 320, e.pageY - 180]);
     const index = e.target.getAttribute('data-index');
@@ -70,7 +72,7 @@ const FloorPlan = ({ times }) => {
   }
 
 
-  if (heatMap.length === 0) return <div>Loading...</div>;
+  if (heatMap.length === 0 || !heatMap) return <div>Loading...</div>;
 
   return (
     <>
@@ -181,7 +183,7 @@ const FloorPlan = ({ times }) => {
           />
         </g>
         <g id="prefix__Layer_6" data-name="Layer 6">
-          <path
+          <StyledPath color={heatMap[8].color} data-index={8}
             className="prefix__cls-4"
             d="M47.11 126.45h35.61v35.61H47.11zM47.11 166.67h35.61v35.61H47.11zM88.65 126.45h35.61v35.61H88.65zM88.65 166.67h35.61v35.61H88.65zM130.2 126.45h35.61v35.61H130.2zM130.2 166.67h35.61v35.61H130.2zM171.74 126.45h35.61v35.61h-35.61zM171.74 166.67h35.61v35.61h-35.61zM213.28 126.45h35.61v35.61h-35.61zM213.28 166.67h35.61v35.61h-35.61zM254.82 126.45h35.61v35.61h-35.61zM254.82 166.67h35.61v35.61h-35.61zM296.36 126.45h35.61v35.61h-35.61zM296.36 166.67h35.61v35.61h-35.61zM337.9 126.45h35.61v35.61H337.9zM337.9 166.67h35.61v35.61H337.9z"
           />
@@ -343,6 +345,16 @@ const FloorPlan = ({ times }) => {
           <text className="prefix__cls-14" transform="translate(1183.58 400.62)">
             {"13"}
           </text>
+          <path data-index={0} opacity={0} fill="#fff" d="M421 126h327v76H421z" />
+          <path data-index={1} opacity={0} fill="#fff" d="M47 126h327v76H47z" />
+          <path data-index={2} transform="rotate(90 210 388)" opacity={0} fill="#fff" d="M30 350h360v76H30z" />
+          <path data-index={3} transform="rotate(180 210 610.5)" opacity={0} fill="#fff" d="M47 572h326v77H47z" />
+          <path data-index={4} transform="rotate(180 584 610.5)" opacity={0} fill="#fff" d="M421 572h326v77H421z" /> 
+          <path data-index={5} transform="rotate(90 584 388)" opacity={0} fill="#fff" d="M404 350h360v76H404z" /> 
+          <path data-index={6} transform="rotate(180 917 610.5)" opacity={0} fill="#fff" d="M754 572h326v77H754z" /> 
+          <path data-index={7} transform="rotate(90 958 388)" opacity={0} fill="#fff" d="M778 350h360v76H778z" />
+          <path data-index={8} transform="rotate(180 1249 610.5)" opacity={0} fill="#fff" d="M1086 572h326v77h-326z" />
+          <path data-index={9} transform="rotate(90 1332 388)" opacity={0} fill="#fff" d="M1152 350h360v76h-360z" />
         </g>
       </svg>
     </>

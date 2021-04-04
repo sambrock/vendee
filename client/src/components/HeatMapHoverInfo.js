@@ -5,6 +5,7 @@ const StyledLegend = styled.div`
   height: 15px;
   width: 15px;
   border-radius: 50%;
+  will-change: transform;
 `;
 
 const HeatMapHoverInfo = ({ x, y, data, isVisible }) => {
@@ -15,7 +16,7 @@ const HeatMapHoverInfo = ({ x, y, data, isVisible }) => {
       </div>
       <div className="flex items-center p-2 bg-white opacity-90 rounded-b-md">
         <StyledLegend color={data.color} />
-        <span className="ml-3 font-semibold">Avg. Time: {data.time}</span>
+        <span className="ml-3 font-semibold">Dwell Time: {data.time}</span>
       </div>
     </div>
   )
