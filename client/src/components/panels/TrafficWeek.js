@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import Chart from 'react-apexcharts';
+
+import { getTrafficWeek } from '../../api';
 import { DateTime } from 'luxon';
 
 const TrafficWeek = () => {
   const [traffic, setTraffic] = useState([]);
 
   useEffect(() => {
-    axios('http://localhost:3001/api/traffic/week')
+    getTrafficWeek()
       .then(res => setTraffic(res.data));
   }, [])
 

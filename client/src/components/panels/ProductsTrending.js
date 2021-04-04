@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+
+import { getProductsTrending } from '../../api';
 
 const ProductsTrending = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios('http://localhost:3001/api/products/trending')
+    getProductsTrending()
       .then(res => setProducts(res.data));
   }, [])
 

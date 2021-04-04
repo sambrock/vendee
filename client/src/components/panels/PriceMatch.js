@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 
+import { getProducts } from '../../api';
 import TopPanel from '../TopPanel';
 import PercentTag from '../PercentTag';
 
@@ -9,7 +9,7 @@ const PriceMatch = () => {
   const [cheaper, setCheaper] = useState(0);
 
   useEffect(() => {
-    axios('http://localhost:3001/api/products/')
+    getProducts()
       .then(res => setProduct(res.data.sort((a, b) => a.change - b.change)[0]));
   }, []);
 
@@ -42,6 +42,3 @@ const PriceMatch = () => {
 }
 
 export default PriceMatch;
-
-{/* <PercentTag value={product.change} direction={product.direction} /> */ }
-// {new Intl.NumberFormat('en-EN', { style: 'currency', currency: 'GBP' }).format(product.price)}

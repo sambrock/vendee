@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 
+import { getProductsTrending } from '../../api';
 import TopPanel from '../TopPanel';
 
 const ProductUnderperforming = () => {
   const [product, setProduct] = useState();
 
   useEffect(() => {
-    axios('http://localhost:3001/api/products/underperforming')
+    getProductsTrending()
       .then(res => setProduct(res.data[0]));
   }, [])
 

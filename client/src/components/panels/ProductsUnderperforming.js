@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+
+import { getProductsUnderperforming } from '../../api';
 
 const ProductsUnderperforming = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios('http://localhost:3001/api/products/underperforming')
+   getProductsUnderperforming()
       .then(res => setProducts(res.data))
   }, [])
 

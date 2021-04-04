@@ -1,19 +1,22 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 
+import { getOccupancy } from '../api'
 import TopPanel from './TopPanel';
 
 export default function Occupancy() {
   const [occupancy, setOccupancy] = useState();
 
   useEffect(() => {
+    getOccupancy()
+      .then(res => setOccupancy(res.data));
+  }, [])
+
+  useEffect(() => {
     const interval = setInterval(async () => {
-      const result = await axios(
-        'http://localhost:3001/api/traffic/occupancy',
-      );
+      const result = await getOccupancy();
 
       setOccupancy(result.data);
-    }, 1000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [])
 
