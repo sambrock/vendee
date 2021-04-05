@@ -1,33 +1,34 @@
 import { useEffect, useState } from 'react';
 
-import { getOccupancy } from '../api'
+import { apiRequest } from '../api'
 import TopPanel from './TopPanel';
 
 export default function Occupancy() {
   const [occupancy, setOccupancy] = useState();
 
+  const maxOccupancy = 100;
+
   useEffect(() => {
-    getOccupancy()
+    apiRequest('/api/traffic/occupancy')
       .then(res => setOccupancy(res.data));
   }, [])
 
   useEffect(() => {
     const interval = setInterval(async () => {
-      const result = await getOccupancy();
-
-      setOccupancy(result.data);
+      const result = await apiRequest('/api/traffic/occupancy');
+      if (result) setOccupancy(result.data);
     }, 5000);
     return () => clearInterval(interval);
   }, [])
 
-  if (!occupancy) return <div></div>; // SKELLY CONTENT
+  if (!occupancy) return <div></div>;
 
   return (
-    <TopPanel bg="bg-blue" icon="social_distance">
+    <TopPanel bg={occupancy.count > maxOccupancy ? "bg-red" : "bg-blue"} icon="social_distance">
       <div className="font-bold text-xl text-whiteOpacity">Live Occupancy</div>
       <div className="col-start-0 row-start-2 mt-2 flex items-baseline">
         <div className="text-main font-bold text-white">{occupancy.count}</div>
-        <span className="font-semibold text-whiteOpacity ml-3 text-xl">/ 40</span>
+        <span className="font-semibold text-whiteOpacity ml-3 text-xl">/ {maxOccupancy}</span>
       </div>
     </TopPanel>
   )

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
-import { getProductsUnderperforming } from '../../api';
+import { apiRequest } from '../../api';
 import TopPanel from '../TopPanel';
 
 const ProductsTrendingRightNow = () => {
   const [product, setProduct] = useState();
 
   useEffect(() => {
-    getProductsUnderperforming()
+    apiRequest('/api/products/underperforming')
       .then(res => setProduct(res.data[0]));
   }, [])
 

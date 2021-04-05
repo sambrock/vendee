@@ -24,12 +24,18 @@ export default function Nav() {
   ]
 
   return (
-    <StyledNav className="fixed  row-span-2 h-screen w-60 text-blue">
+    <StyledNav className="fixed flex flex-col row-span-2 h-screen w-60 text-blue">
       <div className="p-6 logo">
         <img src={Logo} alt="Logo" />
       </div>
       <div className="nav flex flex-col pl-6">
         {links.map(link => <NavBtn to={link.pathname} materialIcon={link.icon} label={link.label} active={link.pathname === pathname} />)}
+      </div>
+      <div className="mt-auto flex flex-col pl-6 pb-6">
+        <div className="select-none mt-auto text-blackOpacity flex items-center px-3 py-3 mr-6 rounded-sm font-semibold hover:bg-blackOpacity2 cursor-pointer" onMouseDown={() => localStorage.removeItem('x-auth-token')}>
+          <span className="font-semibold material-icons-round pr-6">logout</span>
+          Exit
+        </div>
       </div>
     </StyledNav>
   )

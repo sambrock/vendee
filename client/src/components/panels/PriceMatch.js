@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { getProducts } from '../../api';
+import { apiRequest } from '../../api';
 import TopPanel from '../TopPanel';
 import PercentTag from '../PercentTag';
 
@@ -9,7 +9,7 @@ const PriceMatch = () => {
   const [cheaper, setCheaper] = useState(0);
 
   useEffect(() => {
-    getProducts()
+    apiRequest('/api/products')
       .then(res => setProduct(res.data.sort((a, b) => a.change - b.change)[0]));
   }, []);
 

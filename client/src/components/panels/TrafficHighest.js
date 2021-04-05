@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { getTrafficToday } from '../../api';
+import { apiRequest } from '../../api';
 import TopPanel from '../TopPanel';
 import PercentTag from '../PercentTag';
 
@@ -8,7 +8,7 @@ const TrafficHighest = () => {
   const [traffic, setTraffic] = useState([]);
 
   useEffect(() => {
-    getTrafficToday()
+    apiRequest('/api/traffic/today')
       .then(res => setTraffic(res.data));
   }, [])
 

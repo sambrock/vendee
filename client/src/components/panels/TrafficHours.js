@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
-import { getTrafficHour } from '../../api';
+import { apiRequest } from '../../api';
 
 const TrafficHours = () => {
   const [traffic, setTraffic] = useState([]);
 
   useEffect(() => {
-    getTrafficHour()
+    apiRequest('/api/traffic/hour')
       .then(res => setTraffic(res.data));
   }, [])
 

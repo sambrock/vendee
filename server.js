@@ -11,9 +11,13 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Middleware
+const auth = require('./middleware/auth');
+
 // Use routes
-app.use('/api/traffic', require('./routes/api/traffic'));
-app.use('/api/products', require('./routes/api/products'));
+app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/traffic', auth, require('./routes/api/traffic'));
+app.use('/api/products', auth, require('./routes/api/products'));
 
 // Test routes
 app.use('/test', require('./routes/test/test'));
@@ -38,6 +42,6 @@ const port = process.env.PORT;
 app.listen(port, () => console.log(`Server listening on ${port}`));
 
 // Start dynamic pricing
-setInterval(() => {
-  dynamicPricing();
-}, config.dynamic_pricing_interval);
+// setInterval(() => {
+//   dynamicPricing();
+// }, config.dynamic_pricing_interval);

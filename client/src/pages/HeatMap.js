@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { getDwellTime } from '../api';
+import { apiRequest, getDwellTime } from '../api';
 import FloorPlan from '../components/FloorPlan';
 
 const StyledPageContainerDiv = styled.div`
@@ -18,7 +18,7 @@ const HeatMap = () => {
   const [dwellTimes, setDwellTimes] = useState([]);
 
   useEffect(() => {
-    getDwellTime()
+    apiRequest('/api/traffic/dwell-time')
       .then(res => setDwellTimes(res.data));
   }, [])
 

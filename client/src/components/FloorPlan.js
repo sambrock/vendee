@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 import svgPanZoom from 'svg-pan-zoom';
 
 import HeatMapHoverInfo from './HeatMapHoverInfo';
 import ShelfStockModal from './ShelfStockModal';
+import { apiRequest } from '../api';
 
 const StyledPath = styled.path`
   fill: ${props => props.theme.heatmapColors[props.color]};
@@ -29,7 +29,7 @@ const FloorPlan = ({ times }) => {
 
 
   useEffect(() => {
-    axios('http://localhost:3001/api/products')
+    apiRequest('/api/products')
       .then(res => setProducts(res.data.map(p => {
         return { ...p, id: p.productId, interactions: p.interactions.length }
       }).sort((a, b) => a.id - b.id)));

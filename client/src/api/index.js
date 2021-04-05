@@ -5,82 +5,29 @@ const prod = '...';
 
 const baseURL = process.env.NODE_ENV === 'production' ? prod : local;
 
-export const getOccupancy = async () => {
+export const getAuthToken = async (password) => {
   try {
-    const response = await axios.get(`${baseURL}/api/traffic/occupancy`);
-
-    return response;
+    const response = await axios({ method: 'post', url: `${baseURL}/api/auth`, data: { password } });
+    const token = response.data;
+    
+    return token;
   } catch (err) {
     console.error(err);
   }
 }
 
-export const getTrafficToday = async () => {
-  try {
-    const response = await axios.get(`${baseURL}/api/traffic/today`);
+export const apiRequest = async (reqestUrl, requestMethod, data) => {
+  const url = baseURL + reqestUrl;
+  const method = requestMethod || 'get';
 
+  const token = localStorage.getItem('x-auth-token');
+  
+  try {
+    const response = await axios({ method, url, data, headers: { 'x-auth-token': token } });
     return response;
   } catch (err) {
+    localStorage.removeItem('x-auth-token');
     console.error(err);
   }
 }
 
-export const getTrafficWeek = async () => {
-  try {
-    const response = await axios.get(`${baseURL}/api/traffic/week`);
-
-    return response;
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-export const getTrafficHour = async () => {
-  try {
-    const response = await axios.get(`${baseURL}/api/traffic/hour`);
-
-    return response;
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-export const getDwellTime = async () => {  
-  try {
-    const response = await axios.get(`${baseURL}/api/traffic/dwell-time`);
-
-    return response;
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-export const getProducts = async () => {  
-  try {
-    const response = await axios.get(`${baseURL}/api/products`);
-
-    return response;
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-export const getProductsTrending = async () => {  
-  try {
-    const response = await axios.get(`${baseURL}/api/products/trending`);
-
-    return response;
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-export const getProductsUnderperforming = async () => {  
-  try {
-    const response = await axios.get(`${baseURL}/api/products/underperforming`);
-
-    return response;
-  } catch (err) {
-    console.error(err);
-  }
-}

@@ -1,9 +1,12 @@
+require('dotenv').config({path: '../.env'});
 const axios = require('axios');
 
 const { checkPrice } = require('./parser');
 
+const baseURL = process.env.NODE_ENV === 'production' ? process.env.PROD_URL : process.env.LOCAL_URL;
+
 const dynamicPricing = async () => {
-  const products = await axios('http://localhost:3001/api/products');
+  const products = await axios({ method: 'get', url: `${baseURL}/api/products`, headers: { 'x-auth-token': process.env.TOKEN } });
 
   console.log('Starting dynamic pricing...');
 
@@ -12,7 +15,7 @@ const dynamicPricing = async () => {
       const priceString = await checkPrice(dynamicPricing.url, dynamicPricing.element);
       console.log(product.name, dynamicPricing.retailer, priceString);
 
-      if (priceString) axios({ method: 'put', url: `http://localhost:3001/api/products/${product.productId}/dynamic-pricing`, data: { retailer: dynamicPricing.retailer, price: parseFloat(priceString.substring(1)) } })
+      if (priceString) axios({ method: 'put', url: `${baseURL}/api/products/${product.productId}/dynamic-pricing`, data: { retailer: dynamicPricing.retailer, price: parseFloat(priceString.substring(1)) }, headers: { 'x-auth-token': process.env.TOKEN } })
       continue;
     }
   }

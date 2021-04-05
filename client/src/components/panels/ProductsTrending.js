@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { getProductsTrending } from '../../api';
+import { apiRequest } from '../../api';
 
 const ProductsTrending = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    getProductsTrending()
+    apiRequest('/api/products/trending')
       .then(res => setProducts(res.data));
   }, [])
 

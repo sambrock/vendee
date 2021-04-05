@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 
-import { getProducts } from '../../api';
+import { apiRequest } from '../../api';
 import RetailerPriceTagList from '../RetailerPriceTagList';
 import RetailerPriceMatchTag from '../RetailerPriceMatchTag';
 import PriceInput from '../PriceInput';
@@ -10,7 +10,7 @@ const ProductsList = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    getProducts()
+    apiRequest('/api/products')
       .then(res => setProducts(res.data.map(p => {
         return { ...p, id: p.productId, interactions: p.interactions.length }
       }).sort((a, b) => a.id - b.id)));

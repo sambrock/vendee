@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 
-import { getTrafficWeek } from '../../api';
+import { apiRequest } from '../../api';
 import { DateTime } from 'luxon';
 
 const TrafficWeek = () => {
   const [traffic, setTraffic] = useState([]);
 
   useEffect(() => {
-    getTrafficWeek()
+    apiRequest('/api/traffic/week')
       .then(res => setTraffic(res.data));
   }, [])
 
