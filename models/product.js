@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
 const interactionSchema = new mongoose.Schema({
-  createdAt: {
-    type: Date,
-    default: Date.now
+  created_at: {
+    type: Number,
+    required: true,
+    default: Date.now()
   }
 });
 
