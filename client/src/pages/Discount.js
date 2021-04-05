@@ -22,8 +22,8 @@ const Discount = ({ match }) => {
       <div className="flex flex-col h-screenborder-red p-6">
         <h1 className="text-center mb-1">{discount.name}</h1>
         <h2 className="text-center">{discount.code}</h2>
-        <div className="px-auto w-full">
-          <QRCode value="http://facebook.github.io/react/" />
+        <div className="px-12 mt-12 w-full items-center">
+          <QRCode value={window.location.href} />
         </div>
         <div className="flex items-center justify-center mt-auto">
           <span className="font-medium text-sm">Powered by</span><img className="w-12 ml-2" src={Logo} alt="Logo" />
