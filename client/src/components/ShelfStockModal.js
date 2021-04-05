@@ -1,7 +1,8 @@
-import { Modal } from "@material-ui/core";
-import { DataGrid } from "@material-ui/data-grid";
-import { useEffect, useState } from "react";
-import PriceInput from "./PriceInput";
+import { useEffect, useState } from 'react';
+import { Modal } from '@material-ui/core';
+import { DataGrid } from '@material-ui/data-grid';
+
+import PriceInput from './PriceInput';
 
 const ShelfStockModal = ({ modalData }) => {
   const [open, setOpen] = useState(true);

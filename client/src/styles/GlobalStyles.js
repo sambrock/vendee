@@ -68,7 +68,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    margin: 0;
+  margin: 0;
     width: 100%;
     min-height: 100%;
     overflow-x: hidden;
@@ -90,18 +90,15 @@ const GlobalStyle = createGlobalStyle`
     transition: all 0.15s var(--easing);
   }
 
-  .App {
-    /* display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: 100px auto; */
-    
-  }
-
   .page-container {
     margin-left: 320px;
   }
 
-  input {
+  .login-container {
+    background: var(--blue);
+  }
+
+  input, button {
     border: none;
     background: none;
     cursor: pointer;
@@ -114,8 +111,12 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  .default-border-input {
+    border: 3px transparent solid;
+  }
+
   .border-red {
-    border: 1px red solid;
+    border: 3px var(--red) solid;
   }
 
   .apex-chart *{
