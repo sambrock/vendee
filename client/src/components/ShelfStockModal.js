@@ -20,7 +20,7 @@ const ShelfStockModal = ({ modalData }) => {
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'name', headerName: 'Name', width: 450 },
-    { field: 'interactions', headerName: 'Interactions', width: 150 },
+    { field: 'interactionsToday', headerName: 'Interactions', width: 150 },
     { field: 'price', headerName: 'Price', width: 100, renderCell: (p) => <PriceInput productId={p.row.id} price={p.value} /> },
     { field: 'stock', headerName: 'Stock', width: 110, renderCell: (p) => (
       <div className="flex items-center font-medium">

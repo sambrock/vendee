@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import { apiRequest } from '../../api';
 import TopPanel from '../TopPanel';
 import PercentTag from '../PercentTag';
 
@@ -9,9 +8,14 @@ const PriceMatch = () => {
   const [cheaper, setCheaper] = useState(0);
 
   useEffect(() => {
-    apiRequest('/api/products')
-      .then(res => setProduct(res.data.sort((a, b) => a.change - b.change)[0]));
-  }, []);
+    const interval = setInterval(async () => {
+      const products = JSON.parse(localStorage.getItem('/api/products'));
+      if (!products) return;
+
+      setProduct(products.sort((a, b) => a.change - b.change)[0])
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [])
 
   useEffect(() => {
     if(!product) return;

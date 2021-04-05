@@ -21,9 +21,11 @@ export const apiRequest = async (reqestUrl, requestMethod, data) => {
   const method = requestMethod || 'get';
 
   const token = localStorage.getItem('x-auth-token');
-  
+
   try {
     const response = await axios({ method, url, data, headers: { 'x-auth-token': token } });
+    localStorage.setItem(reqestUrl, JSON.stringify(response.data));
+    
     return response;
   } catch (err) {
     localStorage.removeItem('x-auth-token');

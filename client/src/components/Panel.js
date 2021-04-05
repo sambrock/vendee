@@ -6,10 +6,12 @@ const StyledPanelDiv = styled.div`
   /* height: auto; */
 `;
 
-const Panel = ({ bg, grid, title, children }) => {
+const Panel = ({ bg, grid, title, subtitle, children }) => {
   return (
     <StyledPanelDiv className={`p-6 rounded-md ${grid} ${!bg ? 'bg-white' : bg}`}>
-      <div className="text-blackOpacity font-bold text-xl mb-3">{title}</div>
+      <div className="flex items-center">
+      <div className="font-bold text-xl text-blackOpacity">{title} {subtitle ? <span className="text-sm font-semibold ml-1">- {subtitle}</span> : ''}</div>
+      </div>
       {children}
     </StyledPanelDiv>
   )

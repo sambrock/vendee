@@ -1,25 +1,32 @@
 import { useEffect, useState } from 'react';
 
-import { apiRequest } from '../../api';
-
 const ProductsTrending = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    apiRequest('/api/products/trending')
-      .then(res => setProducts(res.data));
+    const interval = setInterval(async () => {
+      const products = JSON.parse(localStorage.getItem('/api/products'));
+
+      if (!products) return;
+      const trending = products
+        .sort((a, b) => b.interactionsToday - a.interactionsToday)
+        .splice(0, 5); // Limit to 5
+
+      setProducts(trending);
+    }, 1000);
+    return () => clearInterval(interval);
   }, [])
 
   return (
     <div style={{ height: '90%' }}>
       <div className="py-3 px-2 flex text-sm  table-border">
-          <span className="font-semibold mr-auto text-blackOpacity">Name</span>
-          <span className="ml-auto font-semibold text-blackOpacity">Interactions</span>
-        </div>
+        <span className="font-semibold mr-auto text-blackOpacity">Name</span>
+        <span className="ml-auto font-semibold text-blackOpacity">Interactions</span>
+      </div>
       {products.map(p => (
         <div className="py-3 px-2 flex justify-between text-sm table-border">
           <span>{p.name}</span>
-          <span className="font-semibold">{p.interactions}</span>
+          <span className="font-semibold">{p.interactionsToday}</span>
         </div>
       ))}
     </div>

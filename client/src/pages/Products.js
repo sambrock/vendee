@@ -25,10 +25,10 @@ const Products = () => {
       <Panel grid="col-span-3 row-start-2 row-span-2" title="Products">
         <ProductsList />
       </Panel>
-      <Panel grid="col-start-4 row-start-2" title="Trending">
+      <Panel grid="col-start-4 row-start-2" title="Trending" subtitle="Today">
         <ProductsTrending />
       </Panel>
-      <Panel grid="col-start-4 row-start-3" title="Underperforming">
+      <Panel grid="col-start-4 row-start-3" title="Underperforming" subtitle="Today">
         <ProductsUnderperforming />
       </Panel>
     </StyledProductsContainerDiv>

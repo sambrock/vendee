@@ -28,12 +28,22 @@ const FloorPlan = ({ times }) => {
   }, [svgRef])
 
 
+  // useEffect(() => {
+  //   apiRequest('/api/products')
+  //     .then(res => setProducts(res.data.map(p => {
+  //       return { ...p, id: p.productId, interactions: p.interactions.length }
+  //     }).sort((a, b) => a.id - b.id)));
+  // }, []);
+
   useEffect(() => {
-    apiRequest('/api/products')
-      .then(res => setProducts(res.data.map(p => {
-        return { ...p, id: p.productId, interactions: p.interactions.length }
-      }).sort((a, b) => a.id - b.id)));
-  }, []);
+    const interval = setInterval(async () => {
+      const products = JSON.parse(localStorage.getItem('/api/products'));
+      if (!products) return;
+
+      setProducts(products)
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [])
 
   useEffect(() => {
     setHeatMap(times.map(t => {

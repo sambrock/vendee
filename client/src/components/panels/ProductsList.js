@@ -7,13 +7,11 @@ import RetailerPriceMatchTag from '../RetailerPriceMatchTag';
 import PriceInput from '../PriceInput';
 
 const ProductsList = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(JSON.parse(localStorage.getItem('/api/products')));
 
   useEffect(() => {
     apiRequest('/api/products')
-      .then(res => setProducts(res.data.map(p => {
-        return { ...p, id: p.productId, interactions: p.interactions.length }
-      }).sort((a, b) => a.id - b.id)));
+      .then(res => setProducts(res.data));
   }, []);
   
   const columns = [
