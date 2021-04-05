@@ -28,8 +28,8 @@ export const apiRequest = async (reqestUrl, requestMethod, data) => {
     
     return response;
   } catch (err) {
-    localStorage.removeItem('x-auth-token');
-    console.error(err);
+    // localStorage.removeItem('x-auth-token');
+    console.log(err);
   }
 }
 

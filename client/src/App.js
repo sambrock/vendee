@@ -12,6 +12,8 @@ import theme from './styles/theme';
 import Login from './pages/Login';
 import PrivateRoute from './components/PrivateRoute';
 import Page from './components/Page';
+import Discounts from './pages/Discounts';
+import Discount from './pages/Discount';
 
 function App() {
   return (
@@ -21,8 +23,10 @@ function App() {
           <GlobalStyle />
           <Switch>
             <Route path="/login" component={Login} />
+            <Route path="/discount/:id" component={Discount} />
             <Page>
               <Switch>
+                <PrivateRoute path="/discounts" component={Discounts} />
                 <PrivateRoute path="/dwell-time" component={HeatMap} />
                 <PrivateRoute path="/products" component={Products} />
                 <PrivateRoute path="/traffic" component={Traffic} />

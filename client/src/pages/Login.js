@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Redirect, Route } from 'react-router';
+import { Redirect } from 'react-router';
 import styled from 'styled-components';
 
 import { apiRequest, getAuthToken } from '../api';
@@ -45,7 +45,8 @@ const Login = () => {
   }
 
   useEffect(() => {
-    apiRequest('/api/products');
+    apiRequest('/api/products')
+    .catch(err => console.log(err));
   }, []);
 
   if (authed) return <Redirect to="/" />

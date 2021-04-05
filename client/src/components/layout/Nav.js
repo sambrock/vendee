@@ -19,7 +19,8 @@ export default function Nav() {
   const links = [
     { pathname: '/', icon: 'dashboard', label: 'Dashboard' },
     { pathname: '/traffic', icon: 'groups', label: 'Traffic' },
-    { pathname: '/products', icon: 'sell', label: 'Products' },
+    { pathname: '/products', icon: 'category', label: 'Products' },
+    { pathname: '/discounts', icon: 'sell', label: 'Discounts' },
     { pathname: '/dwell-time', icon: 'whatshot', label: 'Dwell Time' },
   ]
 

@@ -11,26 +11,16 @@ const ProductsList = () => {
 
   useEffect(() => {
     apiRequest('/api/products')
-      .then(res => setProducts(res.data));
+      .then(res => setProducts(res.data))
+      .catch(err => console.log(err));
   }, []);
-  
+
   const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
     { field: 'name', headerName: 'Name', width: 300 },
-    { field: 'interactions', headerName: 'Interactions', width: 130 },
+    { field: 'interactions', headerName: 'Interactions', width: 140, renderCell: (p) => <span>{new Intl.NumberFormat('en-EN').format(p.value)}</span> },
     { field: 'price', headerName: 'Price', width: 100, renderCell: (p) => <PriceInput productId={p.row.id} price={p.value} /> },
-    {
-      field: 'change',
-      headerName: 'Price Matched?',
-      renderCell: (p) => <RetailerPriceMatchTag change={p.row.change} direction={p.row.direction} />,
-      width: 140
-    },
-    {
-      field: 'dynamicPricing',
-      headerName: 'Other Retailer Prices',
-      renderCell: (p) => <RetailerPriceTagList price={p.row.price} dynamicPricing={p.row.dynamicPricing} />,
-      width: 350
-    },
+    { field: 'change', headerName: 'Price Matched?', width: 170, renderCell: (p) => <RetailerPriceMatchTag change={p.row.change} direction={p.row.direction} />, },
+    { field: 'dynamicPricing', headerName: 'Competitor Prices', renderCell: (p) => <RetailerPriceTagList price={p.row.price} dynamicPricing={p.row.dynamicPricing} />, width: 350 },
   ];
 
   if (!products) return <div></div>;
