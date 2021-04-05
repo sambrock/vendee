@@ -19,7 +19,7 @@ const TrafficHours = () => {
     data: traffic.map(h => h.count)
   }]
 
-  if (!traffic) return <div></div>
+  if (traffic.length === 0) return <div></div>
 
   return (
     <Chart className="apex-chart" options={{ xaxis, colors: ['var(--blue)'], title: { text: '' } }} height="320" series={series} type="line" />
