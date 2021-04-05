@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import FloorPlan from "../components/FloorPlan";
 import Occupancy from "../components/Occupancy";
+import Page from "../components/Page";
 import Panel from "../components/Panel";
 import ProductsList from "../components/panels/ProductsList";
 import ProductsTrending from "../components/panels/ProductsTrending";

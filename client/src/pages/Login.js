@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Redirect } from 'react-router';
+import { Redirect, Route } from 'react-router';
 import styled from 'styled-components';
 
-import GlobalStyle from '../styles/GlobalStyles';
 import { apiRequest, getAuthToken } from '../api';
 import Header from '../components/layout/Header';
 import Logo from '../images/logo-w.svg'
@@ -23,27 +22,36 @@ const StyledLoginInput = styled.input`
 `;
 
 const Login = () => {
+  const [authed, setAuthed] = useState(localStorage.getItem('x-auth-token') ? true : false);
   const [password, setPassword] = useState('');
   const [failed, setFailed] = useState(false);
 
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const token = localStorage.getItem('x-auth-token');
+      token ? setAuthed(true) : setAuthed(false);
+    }, 100);
+    return () => clearInterval(interval);
+  }, [])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!password) return;
+    if (!password) return;
 
     const token = await getAuthToken(password);
-    if(!token) return setFailed(true);
+    if (!token) return setFailed(true);
 
-    localStorage.setItem('x-auth-token', token);
-    return <Redirect to="/dashboard" />
+    return localStorage.setItem('x-auth-token', token);
   }
 
   useEffect(() => {
     apiRequest('/api/products');
   }, []);
 
+  if (authed) return <Redirect to="/" />
+
   return (
-    <div>
-      <GlobalStyle />
+    <div className="bg-blue">
       <div className="fixed text-white">
         <Header color='text-offwhite' />
       </div>

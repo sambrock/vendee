@@ -5,6 +5,7 @@ import Occupancy from '../components/Occupancy';
 import TrafficHours from '../components/panels/TrafficHours';
 import TrafficWeek from '../components/panels/TrafficWeek';
 import TrafficHighest from '../components/panels/TrafficHighest';
+import Page from '../components/Page';
 
 const StyledTrafficContainerDiv = styled.main`
   grid-template-rows: 9rem 400px;

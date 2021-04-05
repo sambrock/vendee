@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { apiRequest, getDwellTime } from '../api';
 import FloorPlan from '../components/FloorPlan';
+import Page from '../components/Page';
 
 const StyledPageContainerDiv = styled.div`
   display: grid;
@@ -24,7 +25,7 @@ const HeatMap = () => {
 
   console.log(dwellTimes);
 
-  if (dwellTimes.length === 0 || !dwellTimes) return <div></div>;
+  // if (dwellTimes.length === 0 || !dwellTimes) return <Page></Page>;
 
   return (
     <StyledPageContainerDiv className="px-6 col-start-2 row-start-2 mb-6">
@@ -40,7 +41,9 @@ const HeatMap = () => {
         </div>
       </div>
       <div className="relative rounded-md bg-grey">
-        <FloorPlan times={dwellTimes} />
+        {dwellTimes.length > 0 &&
+          <FloorPlan times={dwellTimes} />
+        }
       </div>
     </StyledPageContainerDiv>
   )
