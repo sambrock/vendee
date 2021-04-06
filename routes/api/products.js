@@ -11,7 +11,7 @@ const d = DateTime.local().setZone(process.env.TIMEZONE);
 
 // @route   GET api/products
 // @desc    List all products
-// @access  Local network
+// @access  Private
 router.get('/', async (req, res) => {
   const data = await Product.find();
 
@@ -25,9 +25,25 @@ router.get('/', async (req, res) => {
   res.send(products);
 });
 
+// @route   GET api/products
+// @desc    List all products
+// @access  Private
+router.get('/:id', async (req, res) => {
+  const data = await Product.find({ productId: req.params.id });
+
+  const product = data.map(p => {
+    const interactions = getInteractionsNum(p.interactions);
+    const dynamicPricing = getDynamicPricing(p.dynamicPricing, p.price);
+
+    return { ...p.toObject(), id: p.productId, ...dynamicPricing, ...interactions };
+  })
+
+  res.send(product[0]);
+});
+
 // @route   PUT api/products/:id 
 // @desc    Update product price
-// @access  Local network
+// @access  Private
 router.put('/update/:id', async (req, res) => {
   const { id } = req.params;
   const { price } = req.body;
@@ -43,7 +59,7 @@ router.put('/update/:id', async (req, res) => {
 
 // @route   POST api/products/:id/interaction
 // @desc    Add an interaction for a product
-// @access  Local network
+// @access  Private
 router.post('/:id/interaction', async (req, res) => {
   const { id } = req.params;
 
@@ -63,7 +79,7 @@ router.post('/:id/interaction', async (req, res) => {
 
 // @route   PUT api/products/:id/dynamic-pricing
 // @desc    Update the retailer price listed in dynamic pricing
-// @access  Local network
+// @access  Private
 router.put('/:id/dynamic-pricing', async (req, res) => {
   const { id } = req.params;
   const { retailer, price } = req.body;
