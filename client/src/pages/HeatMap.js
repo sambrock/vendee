@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { DateTime } from 'luxon';
+import ClipLoader from "react-spinners/ClipLoader";
 
 import { apiRequest } from '../api';
 import FloorPlan from '../components/FloorPlan';
@@ -18,12 +19,15 @@ const StyledHeatMapBarDiv = styled.div`
 
 const HeatMap = () => {
   const [dwellTimes, setDwellTimes] = useState(JSON.parse(localStorage.getItem('/api/traffic/dwell-time')));
-  // const [dateDefault, setDateDefault] = useState(DateTime.local().toISODate());
   const [date, setDate] = useState(DateTime.local().toISODate());
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     apiRequest(`/api/traffic/dwell-time`)
-      .then(res => setDwellTimes(res.data));
+      .then(res => {
+        setDwellTimes(res.data);
+        setLoading(false);
+      });
   }, [])
 
 
@@ -32,8 +36,13 @@ const HeatMap = () => {
       return setDate(DateTime.local().toISODate());
     };
 
+    setLoading(true);
+
     apiRequest(`/api/traffic/dwell-time?date=${date}`)
-      .then(res => setDwellTimes(res.data))
+      .then(res => {
+        setDwellTimes(res.data);
+        setLoading(false);
+      })
       .catch(err => {
         setDwellTimes(JSON.parse(localStorage.getItem('/api/traffic/dwell-time')));
         setDate(DateTime.local().toISODate());
@@ -68,8 +77,9 @@ const HeatMap = () => {
         </div>
       </div>
       <div className="relative rounded-md bg-grey">
-        {dwellTimes.length > 0 &&
-          <FloorPlan times={dwellTimes} />
+        {!loading ?
+          <FloorPlan times={dwellTimes} /> :
+          <div className="loading mt-6 flex w-full border items-center h-full justify-center text-blue"><ClipLoader color='#fffff' size={50} /></div>
         }
       </div>
     </StyledPageContainerDiv>

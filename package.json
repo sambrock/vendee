@@ -25,6 +25,7 @@
     "mongodb": "^3.6.4",
     "mongoose": "^5.11.18",
     "parse-num": "^1.0.0",
+    "react-spinners": "^0.10.6",
     "request": "^2.88.2",
     "tailwind": "^4.0.0",
     "twin.macro": "^2.3.0",
