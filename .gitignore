@@ -8,3 +8,5 @@ routes/test
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+.ebextensions/*
