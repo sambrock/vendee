@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
-const config = require('./config');
-
 const app = express();
 
 app.use(express.json());
@@ -20,7 +18,7 @@ app.use('/api/products', auth, require('./routes/api/products'));
 app.use('/api/discounts', require('./routes/api/discounts'));
 
 // Test routes
-app.use('/test', require('./routes/test/test'));
+// app.use('/test', require('./routes/test/test'));
 
 // Connect to MongoDB
 mongoose.connect(process.env.DB_CONFIG, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -42,4 +40,4 @@ const port = process.env.PORT;
 app.listen(port, () => console.log(`Server listening on ${port}`));
 
 // Start dynamic pricing
-const { dynamicPricing } = require('./dynamic-pricing');
+// const { dynamicPricing } = require('./dynamic-pricing');

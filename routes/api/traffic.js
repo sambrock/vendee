@@ -9,6 +9,7 @@ const router = express.Router();
 
 const cams = 10;
 const d = DateTime.local();
+const dNew = DateTime.local().setZone(process.env.TIMEZONE);
 const today = d.minus({ hours: d.toObject().hour });
 
 // @route   POST api/traffic
@@ -59,7 +60,7 @@ router.get('/hour', async (req, res) => {
   const traffic = await Traffic.find({ created_at: { $gt: today.toMillis(), $lt: Date.now() } }).sort({ created_at: -1 })
 
   const trafficByHour = getTrafficByHour(traffic);
-
+  console.log(d.toObject().hour, dNew.toObject().hour);
   res.send(trafficByHour);
 });
 
