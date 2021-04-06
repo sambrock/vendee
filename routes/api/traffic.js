@@ -1,6 +1,5 @@
 const express = require('express');
 const { DateTime } = require('luxon');
-const _ = require('lodash');
 
 const Traffic = require('../../models/traffic');
 const { getTrafficByHour, getDwellTime, getTrafficDayChange, getTrafficByWeek, getOccupancy } = require('../../services/traffic-service');
@@ -37,7 +36,6 @@ router.get('/occupancy', async (req, res) => {
   const occupancy = getOccupancy(traffic, cams);
 
   res.send(occupancy);
-
 });
 
 // @route   GET api/traffic/week
@@ -80,7 +78,13 @@ router.get('/today', async (req, res) => {
 // @desc    Get average standing time from each camera
 // @access  Private
 router.get('/dwell-time', async (req, res) => {
-  const traffic = await Traffic.find({ created_at: { $gt: today.toMillis(), $lt: Date.now() } });
+  const { date } = req.query;
+
+  const gt = date ? DateTime.fromISO(date).toMillis() : today.toMillis();
+  const lt = date ? DateTime.fromISO(date).plus({ day: 1 }).toMillis() : Date.now();
+
+  const traffic = await Traffic.find({ created_at: { $gt: gt, $lt: lt } });
+  if(traffic.length === 0) return res.sendStatus(400);
 
   const cameraTraffic = [];
 

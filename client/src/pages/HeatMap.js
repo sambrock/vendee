@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { DateTime } from 'luxon';
 
 import { apiRequest } from '../api';
 import FloorPlan from '../components/FloorPlan';
+import { TextField } from '@material-ui/core';
 
 const StyledPageContainerDiv = styled.div`
   display: grid;
@@ -16,16 +18,46 @@ const StyledHeatMapBarDiv = styled.div`
 
 const HeatMap = () => {
   const [dwellTimes, setDwellTimes] = useState(JSON.parse(localStorage.getItem('/api/traffic/dwell-time')));
+  // const [dateDefault, setDateDefault] = useState(DateTime.local().toISODate());
+  const [date, setDate] = useState(DateTime.local().toISODate());
 
   useEffect(() => {
-    apiRequest('/api/traffic/dwell-time')
+    apiRequest(`/api/traffic/dwell-time`)
       .then(res => setDwellTimes(res.data));
   }, [])
+
+
+  const handleSearch = () => {
+    if (!date || DateTime.fromISO(date).toMillis() > Date.now()) {
+      return setDate(DateTime.local().toISODate());
+    };
+
+    apiRequest(`/api/traffic/dwell-time?date=${date}`)
+      .then(res => setDwellTimes(res.data))
+      .catch(err => {
+        setDwellTimes(JSON.parse(localStorage.getItem('/api/traffic/dwell-time')));
+        setDate(DateTime.local().toISODate());
+      })
+      ;
+  };
 
   return (
     <StyledPageContainerDiv className="px-6 col-start-2 row-start-2 mb-6">
       <div className="w-full mb-6 h-14 flex items-center justify-between">
         <div className="text-heading font-bold text-black">Dwell Time</div>
+        <div className="mr-auto ml-12 flex items-center">
+          <TextField
+            id="date"
+            type="date"
+            defaultValue={date}
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <button className="search-btn" onMouseDown={() => handleSearch()}>Apply</button>
+        </div>
         <div className="grid grid-rows-2">
           <div className="row-start-1 flex justify-between mb-2">
             <span className="font-semibold text-blackOpacity text-xs">&lt;0:10</span>

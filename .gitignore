@@ -10,3 +10,5 @@ routes/test
 !.elasticbeanstalk/*.global.yml
 
 .ebextensions/*
+
+myapp.zip

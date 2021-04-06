@@ -44,7 +44,7 @@ const getTotalCountPerDay = (arr) => {
   });
 }
 
-const getDwellTime = (arr, cams) => {
+const getDwellTime = (arr) => {
   const timesCount = arr.map(a => {
     const time = DateTime.fromMillis(a.created_at).toISOTime();
 
@@ -65,7 +65,7 @@ const getDwellTime = (arr, cams) => {
   });
 
   const date = new Date(0);
-  const seconds = Math.round(totalTime / totalCount) - 420; // Test data is inconsistant, so reduce the average times when testing
+  const seconds = (Math.round(totalTime / totalCount) - 420); // Test data is inconsistant, so reduce the average times when testing
   date.setSeconds(seconds);
   const string = date.toISOString().substr(14, 5);
 

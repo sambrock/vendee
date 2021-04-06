@@ -136,6 +136,12 @@ const GlobalStyle = createGlobalStyle`
     font-size: var(--fz-md) !important;
   }
 
+  .MuiInputBase-root {
+    font-family: var(--font-sans) !important;
+    font-size: var(--fz-md) !important;
+    font-weight: 500 !important;
+  }
+
   .MuiDataGrid-root .MuiDataGrid-row.Mui-selected {
     background-color: var(--blue-opacity) !important;
   }
@@ -153,6 +159,19 @@ const GlobalStyle = createGlobalStyle`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  .search-btn {
+    background: var(--blue-opacity);
+    color: var(--blue);
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-weight: 600;
+    margin-left: 12px;
+
+    &:focus {
+      background: var(--blue-opacity);
+    }
   }
 `;
 
