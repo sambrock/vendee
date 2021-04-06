@@ -49,7 +49,7 @@ const Login = () => {
     .catch(err => console.log(err));
   }, []);
 
-  if (authed) return <Redirect to="/" />
+  if (authed) return <Redirect to="/dashboard" />
 
   return (
     <div className="bg-blue">

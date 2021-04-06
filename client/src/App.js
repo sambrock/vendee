@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import Dashboard from './pages/Dashboard';
@@ -23,14 +23,15 @@ function App() {
           <GlobalStyle />
           <Switch>
             <Route path="/login" component={Login} />
-            <Route path="/discount/:id" component={Discount} />
+            <Route path="/d/:id" component={Discount} />
             <Page>
               <Switch>
                 <PrivateRoute path="/discounts" component={Discounts} />
                 <PrivateRoute path="/dwell-time" component={HeatMap} />
                 <PrivateRoute path="/products" component={Products} />
                 <PrivateRoute path="/traffic" component={Traffic} />
-                <PrivateRoute exact={true} path="/" component={Dashboard} />
+                <PrivateRoute path="/dashboard" component={Dashboard} />
+                <PrivateRoute path='*' exact={true} component={() => <Redirect to={'/dashboard'} />} /> 
               </Switch>
             </Page>
           </Switch>
