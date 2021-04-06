@@ -7,7 +7,7 @@ const { getInteractionsNum, getDynamicPricing } = require('../../services/produc
 
 const router = express.Router();
 
-const d = DateTime.local();
+const d = DateTime.local().setZone(process.env.TIMEZONE);
 
 // @route   GET api/products
 // @desc    List all products

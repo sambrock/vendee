@@ -1,4 +1,4 @@
-require('dotenv').config({path: '../.env'});
+require('dotenv').config({ path: '../.env' });
 const axios = require('axios');
 
 const { checkPrice } = require('./parser');
@@ -23,4 +23,10 @@ const dynamicPricing = async () => {
   console.log('Finished.');
 };
 
-module.exports = { dynamicPricing }
+dynamicPricing();
+
+setInterval(async () => {
+  dynamicPricing();
+}, 3600000) // 1 hour
+
+// module.exports = { dynamicPricing }

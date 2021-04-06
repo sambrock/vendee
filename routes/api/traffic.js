@@ -8,13 +8,13 @@ const { getTrafficByHour, getDwellTime, getTrafficDayChange, getTrafficByWeek, g
 const router = express.Router();
 
 const cams = 10;
-const d = DateTime.local();
-const dNew = DateTime.local().setZone(process.env.TIMEZONE);
+
+const d = DateTime.local().setZone(process.env.TIMEZONE);
 const today = d.minus({ hours: d.toObject().hour });
 
 // @route   POST api/traffic
 // @desc    Add camera traffic
-// @access  Local network
+// @access  Private
 router.post('/:id', async (req, res) => {
   const { id } = req.params;
   const { count } = req.body;
@@ -30,7 +30,7 @@ router.post('/:id', async (req, res) => {
 
 // @route   GET api/traffic/occupancy
 // @desc    Get live occupancy for all cameras
-// @access  Local network
+// @access  Private
 router.get('/occupancy', async (req, res) => {
   const traffic = await Traffic.find({ created_at: { $gt: today.toMillis(), $lt: Date.now() } }).sort({ created_at: -1 });
 
@@ -42,7 +42,7 @@ router.get('/occupancy', async (req, res) => {
 
 // @route   GET api/traffic/week
 // @desc    Get traffic for this and last week
-// @access  Local network
+// @access  Private
 router.get('/week', async (req, res) => {
   const twoweeksago = d.minus({ days: 14, hours: d.toObject().hour }).toMillis();
 
@@ -55,18 +55,18 @@ router.get('/week', async (req, res) => {
 
 // @route   GET api/traffic/hour
 // @desc    Get traffic at each hour
-// @access  Local network 
+// @access  Private 
 router.get('/hour', async (req, res) => {
   const traffic = await Traffic.find({ created_at: { $gt: today.toMillis(), $lt: Date.now() } }).sort({ created_at: -1 })
 
   const trafficByHour = getTrafficByHour(traffic);
-  console.log(d.toObject().hour, dNew.toObject().hour);
+
   res.send(trafficByHour);
 });
 
 // @route   GET api/traffic/today
 // @desc    Get total traffic for today and percentage change
-// @access  Local network
+// @access  Private
 router.get('/today', async (req, res) => {
   const trafficToday = await Traffic.find({ created_at: { $gt: today.toMillis(), $lt: d.toMillis() } }).sort({ created_at: -1 });
   const tafficYesterday = await Traffic.find({ created_at: { $gt: today.minus({ day: 1 }).toMillis(), $lt: today.toMillis() } }).sort({ created_at: -1 });
@@ -78,7 +78,7 @@ router.get('/today', async (req, res) => {
 
 // @route   GET api/traffic/heat-map
 // @desc    Get average standing time from each camera
-// @access  Local network
+// @access  Private
 router.get('/dwell-time', async (req, res) => {
   const traffic = await Traffic.find({ created_at: { $gt: today.toMillis(), $lt: Date.now() } });
 

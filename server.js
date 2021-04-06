@@ -38,6 +38,3 @@ if (process.env.NODE_ENV === 'production') {
 // Server
 const port = process.env.PORT;
 app.listen(port, () => console.log(`Server listening on ${port}`));
-
-// Start dynamic pricing
-// const { dynamicPricing } = require('./dynamic-pricing');
