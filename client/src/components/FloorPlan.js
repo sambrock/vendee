@@ -4,7 +4,6 @@ import svgPanZoom from 'svg-pan-zoom';
 
 import HeatMapHoverInfo from './HeatMapHoverInfo';
 import ShelfStockModal from './ShelfStockModal';
-import { apiRequest } from '../api';
 
 const StyledPath = styled.path`
   fill: ${props => props.theme.heatmapColors[props.color]};
@@ -15,7 +14,7 @@ const FloorPlan = ({ times }) => {
   const [pos, setPos] = useState([0, 0]);
   const [active, setActive] = useState('');
   const [isVisible, setIsViible] = useState(false);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(JSON.parse(localStorage.getItem('/api/products')));
   const [modalData, setModalData] = useState({ open: false, shelf: 0, stock: [] });
 
   const svgRef = useRef();
@@ -27,13 +26,6 @@ const FloorPlan = ({ times }) => {
     }, 100)
   }, [svgRef])
 
-
-  // useEffect(() => {
-  //   apiRequest('/api/products')
-  //     .then(res => setProducts(res.data.map(p => {
-  //       return { ...p, id: p.productId, interactions: p.interactions.length }
-  //     }).sort((a, b) => a.id - b.id)));
-  // }, []);
 
   useEffect(() => {
     const interval = setInterval(async () => {
@@ -63,8 +55,6 @@ const FloorPlan = ({ times }) => {
     }))
   }, [times]);
 
-  console.log(times);
-
   const handleHover = (e) => {
     setPos([e.pageX - 320, e.pageY - 180]);
     const index = e.target.getAttribute('data-index');
@@ -81,8 +71,7 @@ const FloorPlan = ({ times }) => {
     setModalData({ open: true, shelf: shelfId, stock });
   }
 
-
-  if (heatMap.length === 0 || !heatMap) return <div>Loading...</div>;
+  if (heatMap.length === 0 || !heatMap) return <div></div>;
 
   return (
     <>
@@ -90,7 +79,7 @@ const FloorPlan = ({ times }) => {
       <HeatMapHoverInfo x={pos[0]} y={pos[1]} data={active} isVisible={isVisible} />
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1419 784" ref={svgRef} width="100%" height="100%" onMouseMove={(e) => handleHover(e)}>
         <defs>
-          <style> {` .prefix__cls-2 { fill: #fff } .prefix__cls-14, .prefix__cls-3 { fill: #9598fa } .prefix__cls-4 { fill: #ff1d25 } .prefix__cls-10, .prefix__cls-11, .prefix__cls-12, .prefix__cls-13, .prefix__cls-4, .prefix__cls-5, .prefix__cls-6, .prefix__cls-7, .prefix__cls-8, .prefix__cls-9 { opacity: .65 } .prefix__cls-14 { font-size: 40.5px; font-family: Barlow-Bold, Barlow; font-weight: 700 }`} </style>
+          <style> {` .prefix__cls-2 { fill: #fff } .prefix__cls-14, .prefix__cls-3 { fill: #9598fa } .prefix__cls-10, .prefix__cls-11, .prefix__cls-12, .prefix__cls-13, .prefix__cls-4, .prefix__cls-5, .prefix__cls-6, .prefix__cls-7, .prefix__cls-8, .prefix__cls-9 { opacity: .65 } .prefix__cls-14 { font-size: 40.5px; font-family: Barlow-Bold, Barlow; font-weight: 700 }`} </style>
         </defs>
         <path
           fill="#e0e1fe"
@@ -193,123 +182,123 @@ const FloorPlan = ({ times }) => {
           />
         </g>
         <g id="prefix__Layer_6" data-name="Layer 6">
-          <StyledPath color={heatMap[8].color} data-index={8}
+          <StyledPath color={heatMap[1].color} data-index={1} 
             className="prefix__cls-4"
             d="M47.11 126.45h35.61v35.61H47.11zM47.11 166.67h35.61v35.61H47.11zM88.65 126.45h35.61v35.61H88.65zM88.65 166.67h35.61v35.61H88.65zM130.2 126.45h35.61v35.61H130.2zM130.2 166.67h35.61v35.61H130.2zM171.74 126.45h35.61v35.61h-35.61zM171.74 166.67h35.61v35.61h-35.61zM213.28 126.45h35.61v35.61h-35.61zM213.28 166.67h35.61v35.61h-35.61zM254.82 126.45h35.61v35.61h-35.61zM254.82 166.67h35.61v35.61h-35.61zM296.36 126.45h35.61v35.61h-35.61zM296.36 166.67h35.61v35.61h-35.61zM337.9 126.45h35.61v35.61H337.9zM337.9 166.67h35.61v35.61H337.9z"
           />
-          <StyledPath color={heatMap[1].color} data-index={1}
+          <StyledPath color={heatMap[0].color} data-index={0} 
             className="prefix__cls-5"
             d="M420.99 126.45h35.61v35.61h-35.61zM420.99 166.67h35.61v35.61h-35.61zM462.53 126.45h35.61v35.61h-35.61zM462.53 166.67h35.61v35.61h-35.61zM504.07 126.45h35.61v35.61h-35.61zM504.07 166.67h35.61v35.61h-35.61zM545.61 126.45h35.61v35.61h-35.61zM545.61 166.67h35.61v35.61h-35.61zM587.15 126.45h35.61v35.61h-35.61zM587.15 166.67h35.61v35.61h-35.61zM628.7 126.45h35.61v35.61H628.7zM628.7 166.67h35.61v35.61H628.7zM670.24 126.45h35.61v35.61h-35.61zM670.24 166.67h35.61v35.61h-35.61zM711.78 126.45h35.61v35.61h-35.61zM711.78 166.67h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[0].color} data-index={0}
+          <StyledPath color={heatMap[2].color} data-index={2}
             className="prefix__cls-6"
             d="M171.74 208.21h35.61v35.61h-35.61zM171.74 248.43h35.61v35.61h-35.61zM171.74 288.66h35.61v35.61h-35.61zM171.74 328.88h35.61v35.61h-35.61zM213.28 208.21h35.61v35.61h-35.61zM213.28 248.43h35.61v35.61h-35.61zM213.28 288.66h35.61v35.61h-35.61zM213.28 328.88h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[2].color} data-index={2}
+          <StyledPath color={heatMap[5].color} data-index={5}
             className="prefix__cls-7"
             d="M545.61 208.21h35.61v35.61h-35.61zM545.61 248.43h35.61v35.61h-35.61zM545.61 288.66h35.61v35.61h-35.61zM545.61 328.88h35.61v35.61h-35.61zM587.15 208.21h35.61v35.61h-35.61zM587.15 248.43h35.61v35.61h-35.61zM587.15 288.66h35.61v35.61h-35.61zM587.15 328.88h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[5].color} data-index={5}
+          <StyledPath color={heatMap[7].color} data-index={7}
             className="prefix__cls-8"
             d="M919.49 208.21h35.61v35.61h-35.61zM919.49 248.43h35.61v35.61h-35.61zM919.49 288.66h35.61v35.61h-35.61zM919.49 328.88h35.61v35.61h-35.61zM961.03 208.21h35.61v35.61h-35.61zM961.03 248.43h35.61v35.61h-35.61zM961.03 288.66h35.61v35.61h-35.61zM961.03 328.88h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[7].color} data-index={7}
+          <StyledPath color={heatMap[9].color} data-index={9}
             className="prefix__cls-9"
             d="M1293.36 208.21h35.61v35.61h-35.61zM1293.36 248.43h35.61v35.61h-35.61zM1293.36 288.66h35.61v35.61h-35.61zM1293.36 328.88h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[0].color} data-index={0}
+          <StyledPath color={heatMap[2].color} data-index={2}
             className="prefix__cls-6"
             d="M171.74 370.42h35.61v35.61h-35.61zM171.74 410.64h35.61v35.61h-35.61zM171.74 450.87h35.61v35.61h-35.61zM171.74 491.09h35.61v35.61h-35.61zM213.28 370.42h35.61v35.61h-35.61zM213.28 410.64h35.61v35.61h-35.61zM213.28 450.87h35.61v35.61h-35.61zM213.28 491.09h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[2].color} data-index={2}
+          <StyledPath color={heatMap[5].color} data-index={5}
             className="prefix__cls-7"
             d="M545.61 370.42h35.61v35.61h-35.61zM545.61 410.64h35.61v35.61h-35.61zM545.61 450.87h35.61v35.61h-35.61zM545.61 491.09h35.61v35.61h-35.61zM587.15 370.42h35.61v35.61h-35.61zM587.15 410.64h35.61v35.61h-35.61zM587.15 450.87h35.61v35.61h-35.61zM587.15 491.09h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[5].color} data-index={5}
+          <StyledPath color={heatMap[7].color} data-index={7}
             className="prefix__cls-8"
             d="M919.49 370.42h35.61v35.61h-35.61zM919.49 410.64h35.61v35.61h-35.61zM919.49 450.87h35.61v35.61h-35.61zM919.49 491.09h35.61v35.61h-35.61zM961.03 370.42h35.61v35.61h-35.61zM961.03 410.64h35.61v35.61h-35.61zM961.03 450.87h35.61v35.61h-35.61zM961.03 491.09h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[7].color} data-index={7}
+          <StyledPath color={heatMap[9].color} data-index={9}
             className="prefix__cls-9"
             d="M1293.36 370.42h35.61v35.61h-35.61zM1293.36 410.64h35.61v35.61h-35.61zM1293.36 450.87h35.61v35.61h-35.61zM1293.36 491.09h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[9].color} data-index={9}
+          <StyledPath color={heatMap[3].color} data-index={3}
             className="prefix__cls-10"
             d="M47.11 572.85h35.61v35.61H47.11zM47.11 613.08h35.61v35.61H47.11zM88.65 572.85h35.61v35.61H88.65zM88.65 613.08h35.61v35.61H88.65zM130.2 572.85h35.61v35.61H130.2zM130.2 613.08h35.61v35.61H130.2z"
           />
-          <StyledPath color={heatMap[0].color} data-index={0}
+          <StyledPath color={heatMap[2].color} data-index={2}
             className="prefix__cls-6"
             d="M171.74 532.63h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[9].color} data-index={9}
+          <StyledPath color={heatMap[3].color} data-index={3}
             className="prefix__cls-10"
             d="M171.74 572.85h35.61v35.61h-35.61zM171.74 613.08h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[0].color} data-index={0}
+          <StyledPath color={heatMap[2].color} data-index={2}
             className="prefix__cls-6"
             d="M213.28 532.63h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[9].color} data-index={9}
+          <StyledPath color={heatMap[3].color} data-index={3}
             className="prefix__cls-10"
             d="M213.28 572.85h35.61v35.61h-35.61zM213.28 613.08h35.61v35.61h-35.61zM254.82 572.85h35.61v35.61h-35.61zM254.82 613.08h35.61v35.61h-35.61zM296.36 572.85h35.61v35.61h-35.61zM296.36 613.08h35.61v35.61h-35.61zM337.9 572.85h35.61v35.61H337.9zM337.9 613.08h35.61v35.61H337.9z"
           />
-          <StyledPath color={heatMap[3].color} data-index={3}
+          <StyledPath color={heatMap[4].color} data-index={4}
             className="prefix__cls-11"
             d="M420.99 572.85h35.61v35.61h-35.61zM420.99 613.08h35.61v35.61h-35.61zM462.53 572.85h35.61v35.61h-35.61zM462.53 613.08h35.61v35.61h-35.61zM504.07 572.85h35.61v35.61h-35.61zM504.07 613.08h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[2].color} data-index={2}
+          <StyledPath color={heatMap[5].color} data-index={5}
             className="prefix__cls-7"
             d="M545.61 532.63h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[3].color} data-index={3}
+          <StyledPath color={heatMap[4].color} data-index={4}
             className="prefix__cls-11"
             d="M545.61 572.85h35.61v35.61h-35.61zM545.61 613.08h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[2].color} data-index={2}
+          <StyledPath color={heatMap[5].color} data-index={5}
             className="prefix__cls-7"
             d="M587.15 532.63h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[3].color} data-index={3}
+          <StyledPath color={heatMap[4].color} data-index={4}
             className="prefix__cls-11"
             d="M587.15 572.85h35.61v35.61h-35.61zM587.15 613.08h35.61v35.61h-35.61zM628.7 572.85h35.61v35.61H628.7zM628.7 613.08h35.61v35.61H628.7zM670.24 572.85h35.61v35.61h-35.61zM670.24 613.08h35.61v35.61h-35.61zM711.78 572.85h35.61v35.61h-35.61zM711.78 613.08h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[4].color} data-index={4}
+          <StyledPath color={heatMap[6].color} data-index={6}
             className="prefix__cls-12"
             d="M753.32 572.85h35.61v35.61h-35.61zM753.32 613.08h35.61v35.61h-35.61zM794.86 572.85h35.61v35.61h-35.61zM794.86 613.08h35.61v35.61h-35.61zM836.4 572.85h35.61v35.61H836.4zM836.4 613.08h35.61v35.61H836.4zM877.95 572.85h35.61v35.61h-35.61zM877.95 613.08h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[5].color} data-index={5}
+          <StyledPath color={heatMap[7].color} data-index={7}
             className="prefix__cls-8"
             d="M919.49 532.63h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[4].color} data-index={4}
+          <StyledPath color={heatMap[6].color} data-index={6}
             className="prefix__cls-12"
             d="M919.49 572.85h35.61v35.61h-35.61zM919.49 613.08h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[5].color} data-index={5}
+          <StyledPath color={heatMap[7].color} data-index={7}
             className="prefix__cls-8"
             d="M961.03 532.63h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[4].color} data-index={4}
+          <StyledPath color={heatMap[6].color} data-index={6}
             className="prefix__cls-12"
             d="M961.03 572.85h35.61v35.61h-35.61zM961.03 613.08h35.61v35.61h-35.61zM1002.57 572.85h35.61v35.61h-35.61zM1002.57 613.08h35.61v35.61h-35.61zM1044.11 572.85h35.61v35.61h-35.61zM1044.11 613.08h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[6].color} data-index={6}
+          <StyledPath color={heatMap[8].color} data-index={8}
             className="prefix__cls-13"
             d="M1085.65 572.85h35.61v35.61h-35.61zM1085.65 613.08h35.61v35.61h-35.61zM1127.19 572.85h35.61v35.61h-35.61zM1127.19 613.08h35.61v35.61h-35.61zM1168.74 572.85h35.61v35.61h-35.61zM1168.74 613.08h35.61v35.61h-35.61zM1210.28 572.85h35.61v35.61h-35.61zM1210.28 613.08h35.61v35.61h-35.61zM1251.82 572.85h35.61v35.61h-35.61zM1251.82 613.08h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[7].color} data-index={7}
+          <StyledPath color={heatMap[9].color} data-index={9}
             className="prefix__cls-9"
             d="M1293.36 532.63h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[6].color} data-index={6}
+          <StyledPath color={heatMap[8].color} data-index={8}
             className="prefix__cls-13"
             d="M1293.36 572.85h35.61v35.61h-35.61zM1293.36 613.08h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[7].color} data-index={7}
+          <StyledPath color={heatMap[9].color} data-index={9}
             className="prefix__cls-9"
             d="M1334.9 208.21h35.61v35.61h-35.61zM1334.9 248.43h35.61v35.61h-35.61zM1334.9 288.66h35.61v35.61h-35.61zM1334.9 328.88h35.61v35.61h-35.61zM1334.9 370.42h35.61v35.61h-35.61zM1334.9 410.64h35.61v35.61h-35.61zM1334.9 450.87h35.61v35.61h-35.61zM1334.9 491.09h35.61v35.61h-35.61zM1334.9 532.63h35.61v35.61h-35.61z"
           />
-          <StyledPath color={heatMap[6].color} data-index={6}
+          <StyledPath color={heatMap[8].color} data-index={8}
             className="prefix__cls-13"
             d="M1334.9 572.85h35.61v35.61h-35.61zM1334.9 613.08h35.61v35.61h-35.61zM1376.44 572.85h35.61v35.61h-35.61zM1376.44 613.08h35.61v35.61h-35.61z"
           />
@@ -357,14 +346,14 @@ const FloorPlan = ({ times }) => {
           </text>
           <path data-index={0} opacity={0} fill="#fff" d="M421 126h327v76H421z" />
           <path data-index={1} opacity={0} fill="#fff" d="M47 126h327v76H47z" />
-          <path data-index={2} transform="rotate(90 210 388)" opacity={0} fill="#fff" d="M30 350h360v76H30z" />
-          <path data-index={3} transform="rotate(180 210 610.5)" opacity={0} fill="#fff" d="M47 572h326v77H47z" />
-          <path data-index={4} transform="rotate(180 584 610.5)" opacity={0} fill="#fff" d="M421 572h326v77H421z" /> 
-          <path data-index={5} transform="rotate(90 584 388)" opacity={0} fill="#fff" d="M404 350h360v76H404z" /> 
-          <path data-index={6} transform="rotate(180 917 610.5)" opacity={0} fill="#fff" d="M754 572h326v77H754z" /> 
-          <path data-index={7} transform="rotate(90 958 388)" opacity={0} fill="#fff" d="M778 350h360v76H778z" />
-          <path data-index={8} transform="rotate(180 1249 610.5)" opacity={0} fill="#fff" d="M1086 572h326v77h-326z" />
-          <path data-index={9} transform="rotate(90 1332 388)" opacity={0} fill="#fff" d="M1152 350h360v76h-360z" />
+      2   <path data-index={2} transform="rotate(90 210 388)" opacity={0} fill="#fff" d="M30 350h360v76H30z" />
+      3   <path data-index={3} transform="rotate(180 210 610.5)" opacity={0} fill="#fff" d="M47 572h326v77H47z" />
+      4   <path data-index={4} transform="rotate(180 584 610.5)" opacity={0} fill="#fff" d="M421 572h326v77H421z" /> 
+      5   <path data-index={5} transform="rotate(90 584 388)" opacity={0} fill="#fff" d="M404 350h360v76H404z" /> 
+      6   <path data-index={6} transform="rotate(180 917 610.5)" opacity={0} fill="#fff" d="M754 572h326v77H754z" /> 
+      7   <path data-index={7} transform="rotate(90 958 388)" opacity={0} fill="#fff" d="M778 350h360v76H778z" />
+      8   <path data-index={8} transform="rotate(180 1249 610.5)" opacity={0} fill="#fff" d="M1086 572h326v77h-326z" />
+      9   <path data-index={9} transform="rotate(90 1332 388)" opacity={0} fill="#fff" d="M1152 350h360v76h-360z" />
         </g>
       </svg>
     </>

@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { apiRequest, getDwellTime } from '../api';
+import { apiRequest } from '../api';
 import FloorPlan from '../components/FloorPlan';
-import Page from '../components/Page';
 
 const StyledPageContainerDiv = styled.div`
   display: grid;
@@ -16,16 +15,12 @@ const StyledHeatMapBarDiv = styled.div`
 `;
 
 const HeatMap = () => {
-  const [dwellTimes, setDwellTimes] = useState([]);
+  const [dwellTimes, setDwellTimes] = useState(JSON.parse(localStorage.getItem('/api/traffic/dwell-time')));
 
   useEffect(() => {
     apiRequest('/api/traffic/dwell-time')
       .then(res => setDwellTimes(res.data));
   }, [])
-
-  console.log(dwellTimes);
-
-  // if (dwellTimes.length === 0 || !dwellTimes) return <Page></Page>;
 
   return (
     <StyledPageContainerDiv className="px-6 col-start-2 row-start-2 mb-6">

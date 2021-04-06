@@ -6,7 +6,7 @@ import TopPanel from './TopPanel';
 export default function Occupancy() {
   const [occupancy, setOccupancy] = useState(JSON.parse(localStorage.getItem('/api/traffic/occupancy')));
 
-  const maxOccupancy = 100;
+  const maxOccupancy = 40;
 
   useEffect(() => {
   apiRequest('/api/traffic/occupancy')
