@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { DateTime } from 'luxon';
 
 import TopPanel from '../TopPanel';
 
 const ProductUnderperforming = () => {
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState(JSON.parse(localStorage.getItem('/api/products')))
 
   useEffect(() => {
     const interval = setInterval(async () => {
@@ -14,7 +13,7 @@ const ProductUnderperforming = () => {
       const underperforming = products
         .sort((a, b) => a.interactionsHour - b.interactionsHour)
         .splice(0, 5); // Limit to 5
-        
+
       console.log(underperforming);
 
       setProduct(underperforming[0]);

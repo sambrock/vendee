@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const ProductsTrending = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(JSON.parse(localStorage.getItem('/api/products')))
 
   useEffect(() => {
     const interval = setInterval(async () => {
