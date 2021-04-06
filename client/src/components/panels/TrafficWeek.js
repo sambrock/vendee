@@ -5,7 +5,7 @@ import { apiRequest } from '../../api';
 import { DateTime } from 'luxon';
 
 const TrafficWeek = () => {
-  const [traffic, setTraffic] = useState([]);
+  const [traffic, setTraffic] = useState(JSON.parse(localStorage.getItem('/api/traffic/week')));
 
   useEffect(() => {
     apiRequest('/api/traffic/week')

@@ -5,7 +5,7 @@ import TopPanel from '../TopPanel';
 import PercentTag from '../PercentTag';
 
 const TrafficHighest = () => {
-  const [traffic, setTraffic] = useState([]);
+  const [traffic, setTraffic] = useState(JSON.parse(localStorage.getItem('/api/traffic/today')));
 
   useEffect(() => {
     apiRequest('/api/traffic/today')
