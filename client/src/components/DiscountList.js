@@ -15,7 +15,7 @@ const DiscountList = () => {
 
   const columns = [
     { field: 'name', headerName: 'Name', width: 200 },
-    { field: 'code', headerName: 'Code', width: 200, renderCell: (p) => <span className="flex items-center p-1 bg-blackOpacity2 px-2 h-8 font-semibold rounded-md">{p.value}</span> },
+    { field: 'code', headerName: 'Code', width: 200, renderCell: (p) => <span className="flex items-center p-1 bg-blackOpacity2 px-2 h-8 font-semibold rounded-md"><a className="text-black" href={`/d/${p.rowIndex}`} rel="noreferrer" target="_blank">{p.value}</a></span> },
     {
       field: 'value', headerName: 'Amount', width: 120, renderCell: (p) => {
         if (p.value > 1) {

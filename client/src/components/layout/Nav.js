@@ -17,7 +17,7 @@ export default function Nav() {
   let { pathname } = useLocation();
 
   const links = [
-    { pathname: '/', icon: 'dashboard', label: 'Dashboard' },
+    { pathname: '/dashboard', icon: 'dashboard', label: 'Dashboard' },
     { pathname: '/traffic', icon: 'groups', label: 'Traffic' },
     { pathname: '/products', icon: 'category', label: 'Products' },
     { pathname: '/discounts', icon: 'sell', label: 'Discounts' },

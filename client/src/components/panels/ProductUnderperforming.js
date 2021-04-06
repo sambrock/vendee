@@ -14,8 +14,6 @@ const ProductUnderperforming = () => {
         .sort((a, b) => a.interactionsHour - b.interactionsHour)
         .splice(0, 5); // Limit to 5
 
-      console.log(underperforming);
-
       setProduct(underperforming[0]);
     }, 1000);
     return () => clearInterval(interval);
