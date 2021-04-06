@@ -10,8 +10,8 @@ const Discount = ({ match }) => {
   const id = match.params.id;
 
   useEffect(() => {
-    apiRequest(`/api/discounts/code/${id}`)
-      .then(res => setDiscount(res.data))
+    apiRequest(`/api/discounts`)
+      .then(res => setDiscount(res.data[id]))
       .catch(err => console.log(err));
   }, [id])
 
@@ -19,7 +19,7 @@ const Discount = ({ match }) => {
 
   return (
     <div className="flex justify-center h-screen">
-      <div className="flex flex-col h-screenborder-red p-6">
+      <div className="flex flex-col h-2/3 p-6">
         <h1 className="text-center mb-1">{discount.name}</h1>
         <h2 className="text-center">{discount.code}</h2>
         <div className="px-12 mt-12 w-full items-center">
