@@ -1,7 +1,7 @@
 {
   "name": "vendee",
   "version": "1.0.0",
-  "description": "",
+  "description": "Smart retail store system.",
   "main": "server.js",
   "scripts": {
     "start": "node server",
@@ -26,6 +26,7 @@
     "mongoose": "^5.11.18",
     "parse-num": "^1.0.0",
     "request": "^2.88.2",
+    "tailwind": "^4.0.0",
     "twin.macro": "^2.3.0",
     "uuid": "^3.4.0",
     "wait-on": "^5.2.1"
