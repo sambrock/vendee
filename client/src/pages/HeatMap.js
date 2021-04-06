@@ -34,7 +34,7 @@ const HeatMap = () => {
   const handleSearch = () => {
     if (!date || DateTime.fromISO(date).toMillis() > Date.now()) {
       return setDate(DateTime.local().toISODate());
-    };
+  };
 
     setLoading(true);
 
