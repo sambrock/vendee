@@ -8,10 +8,10 @@ import ProductsUnderperforming from '../components/panels/ProductsUnderperformin
 import ProductsTrendingRightNow from '../components/panels/ProductTrendingRightNow';
 import ProductUnderperforming from '../components/panels/ProductUnderperforming';
 import Occupancy from "../components/Occupancy";
-import Page from '../components/Page';
 
 const StyledProductsContainerDiv = styled.main`
   grid-template-rows: 9rem 1fr 1fr;
+  height: calc(100vh - 9rem);
 `;
 
 const Products = () => {
