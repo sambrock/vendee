@@ -9,6 +9,6 @@ module.exports = function (req, res, next) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     next();
   } catch (err) {
-    res.status(400).send('Invalid token.');
+    res.status(401).send({id: 'INVALID_TOKEN', msg: 'Invalid token.'});
   }
 }

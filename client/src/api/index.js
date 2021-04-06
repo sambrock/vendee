@@ -12,7 +12,7 @@ export const getAuthToken = async (password) => {
     
     return token;
   } catch (err) {
-    console.error(err);
+    return console.error(err);
   }
 }
 
@@ -25,11 +25,11 @@ export const apiRequest = async (reqestUrl, requestMethod, data) => {
   try {
     const response = await axios({ method, url, data, headers: { 'x-auth-token': token } });
     localStorage.setItem(reqestUrl, JSON.stringify(response.data));
-    
+
     return response;
   } catch (err) {
-    // localStorage.removeItem('x-auth-token');
-    console.log(err);
+    if(err.response.data.id === 'INVALID_TOKEN') localStorage.removeItem('x-auth-token');
+    return console.log('error', err);
   }
 }
 
