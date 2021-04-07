@@ -11,7 +11,7 @@ const Discount = ({ match }) => {
 
   useEffect(() => {
     apiRequest(`/api/discounts`)
-      .then(res => setDiscount(res.data[id]))
+      .then(res => setDiscount(res.data[id - 1]))
       .catch(err => console.log(err));
   }, [id])
 

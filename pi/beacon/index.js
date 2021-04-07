@@ -7,10 +7,10 @@ const beacon = () => {
     const discounts = res.data;
     const active = discounts.filter(d => d.expires > Date.now() && d.starts < Date.now());
 
-    const randomIndex = Math.floor(Math.random() * active.length);
+    const randomIndex = Math.floor(Math.random() * active.length) ;
     const discount = active[randomIndex];
 
-    const discountUrl = `http://v.sambrock.com/d/${randomIndex}`;
+    const discountUrl = `http://v.sambrock.com/d/${randomIndex + 1}`;
 
     eddystoneBeacon.advertiseUrl(discountUrl, { name: `${discount.name}: ${discount.code}` });
   });
