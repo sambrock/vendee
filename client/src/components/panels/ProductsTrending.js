@@ -17,6 +17,8 @@ const ProductsTrending = () => {
     return () => clearInterval(interval);
   }, [])
 
+  if(!products) return <div></div>;
+
   return (
     <div style={{ height: '90%' }}>
       <div className="py-3 px-2 flex text-sm  table-border">
@@ -24,7 +26,7 @@ const ProductsTrending = () => {
         <span className="ml-auto font-semibold text-blackOpacity">Interactions</span>
       </div>
       {products.map(p => (
-        <div className="py-3 px-2 flex justify-between text-sm table-border">
+        <div key={p.productId} className="py-3 px-2 flex justify-between text-sm table-border">
           <span>{p.name}</span>
           <span className="font-semibold">{p.interactionsToday}</span>
         </div>

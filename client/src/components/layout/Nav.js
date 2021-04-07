@@ -30,7 +30,7 @@ export default function Nav() {
         <img src={Logo} alt="Logo" />
       </div>
       <div className="nav flex flex-col pl-6">
-        {links.map(link => <NavBtn to={link.pathname} materialIcon={link.icon} label={link.label} active={link.pathname === pathname} />)}
+        {links.map((link, i) => <NavBtn key={i} to={link.pathname} materialIcon={link.icon} label={link.label} active={link.pathname === pathname} />)}
       </div>
       <div className="mt-auto flex flex-col pl-6 pb-6">
         <div className="select-none mt-auto text-blackOpacity flex items-center px-3 py-3 mr-6 rounded-sm font-semibold hover:bg-blackOpacity2 cursor-pointer" onMouseDown={() => localStorage.removeItem('x-auth-token')}>

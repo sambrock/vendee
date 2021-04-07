@@ -1,7 +1,4 @@
-import { DateTime } from 'luxon';
 import { useEffect, useState } from 'react';
-
-import { apiRequest } from '../../api';
 
 const ProductsUnderperforming = () => {
   const [products, setProducts] = useState([]);
@@ -27,7 +24,7 @@ const ProductsUnderperforming = () => {
         <span className="ml-auto font-semibold text-blackOpacity">Interactions</span>
       </div>
       {products.map(p => (
-        <div className="py-3 px-2 flex justify-between text-sm table-border">
+        <div key={p.productId} className="py-3 px-2 flex justify-between text-sm table-border">
           <span>{p.name}</span>
           <span className="font-semibold">{p.interactionsToday}</span>
         </div>

@@ -12,7 +12,7 @@ const RetailerPriceTagList = ({ dynamicPricing }) => {
   return (
     <div className="flex items-center">
       {dynamicPricing.map(dp => (
-        <StyledRetailerTagDiv className="mr-3 px-2 rounded-md flex items-center h-8">
+        <StyledRetailerTagDiv key={dp.retailer} className="mr-3 px-2 rounded-md flex items-center h-8">
           <a href={dp.url} target="_blank" rel="noreferrer" className="dec">
             <RetailerIcons retailer={dp.retailer} />
             <span className="ml-3 text-xs text-blackOpacity">{dp.price ? new Intl.NumberFormat('en-EN', { style: 'currency', currency: 'GBP' }).format(dp.price) : 'N/A'}</span>

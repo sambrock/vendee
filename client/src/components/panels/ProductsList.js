@@ -10,10 +10,23 @@ const ProductsList = () => {
   const [products, setProducts] = useState(JSON.parse(localStorage.getItem('/api/products')));
 
   useEffect(() => {
-    apiRequest('/api/products')
-      .then(res => setProducts(res.data))
-      .catch(err => console.log(err));
+    let active = true;
+
+    const fetchData = async () => {
+      if (active) {
+        apiRequest('/api/products')
+          .then(res => setProducts(res.data))
+          .catch(err => console.log(err));
+      }
+    }
+
+    fetchData();
+    return () => {
+      active = false;
+    }
   }, []);
+
+  if (!products) return <div></div>;
 
   const columns = [
     { field: 'name', headerName: 'Name', width: 300 },
@@ -22,8 +35,6 @@ const ProductsList = () => {
     { field: 'change', headerName: 'Price Matched?', width: 170, renderCell: (p) => <RetailerPriceMatchTag change={p.row.change} direction={p.row.direction} />, },
     { field: 'dynamicPricing', headerName: 'Competitor Prices', renderCell: (p) => <RetailerPriceTagList price={p.row.price} dynamicPricing={p.row.dynamicPricing} />, width: 350 },
   ];
-
-  if (!products) return <div></div>;
 
   return (
     <div className="" style={{ height: '90%' }}>

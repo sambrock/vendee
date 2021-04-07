@@ -8,9 +8,22 @@ const TrafficWeek = () => {
   const [traffic, setTraffic] = useState(JSON.parse(localStorage.getItem('/api/traffic/week')));
 
   useEffect(() => {
-    apiRequest('/api/traffic/week')
-      .then(res => setTraffic(res.data));
+    let active = true;
+
+    const fetchData = async () => {
+      if (active) {
+        apiRequest('/api/traffic/week')
+          .then(res => setTraffic(res.data));
+      }
+    }
+
+    fetchData();
+    return () => {
+      active = false;
+    }
   }, [])
+
+  if(!traffic) return <div></div>;
 
   const series1 = {
     name: 'Last week',

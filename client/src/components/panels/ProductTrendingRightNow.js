@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { DateTime } from 'luxon';
 
 import TopPanel from '../TopPanel';
 

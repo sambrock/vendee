@@ -8,11 +8,22 @@ const TrafficHighest = () => {
   const [traffic, setTraffic] = useState(JSON.parse(localStorage.getItem('/api/traffic/today')));
 
   useEffect(() => {
-    apiRequest('/api/traffic/today')
-      .then(res => setTraffic(res.data));
+    let active = true;
+
+    const fetchData = async () => {
+      if (active) {
+        apiRequest('/api/traffic/today')
+          .then(res => setTraffic(res.data));
+      }
+    }
+
+    fetchData();
+    return () => {
+      active = false;
+    }
   }, [])
 
-  if (!traffic) return <div>test</div>;
+  if (!traffic) return <div></div>;
 
   return (
     <TopPanel icon="groups">

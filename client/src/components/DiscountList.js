@@ -8,10 +8,23 @@ const DiscountList = () => {
   const [discounts, setDiscounts] = useState(JSON.parse(localStorage.getItem('/api/discounts')));
 
   useEffect(() => {
-    apiRequest('/api/discounts')
-      .then(res => setDiscounts(res.data))
-      .catch(err => console.log(err));
+    let active = true;
+
+    const fetchData = async () => {
+      if (active) {
+        apiRequest('/api/discounts')
+          .then(res => setDiscounts(res.data))
+          .catch(err => console.log(err));
+      }
+    }
+
+    fetchData();
+    return () => {
+      active = false;
+    }
   }, []);
+  
+  if (!discounts) return <div></div>;
 
   const columns = [
     { field: 'name', headerName: 'Name', width: 200 },
@@ -43,7 +56,6 @@ const DiscountList = () => {
 
   ];
 
-  if (!discounts) return <div></div>;
 
   return (
     <DataGrid autoHeight={false} rows={discounts} columns={columns} pageSize={10} />

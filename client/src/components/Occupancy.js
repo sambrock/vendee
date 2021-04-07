@@ -9,9 +9,20 @@ export default function Occupancy() {
   const maxOccupancy = 40;
 
   useEffect(() => {
-  apiRequest('/api/traffic/occupancy')
-      .then(res => setOccupancy(res.data))
-      .catch(err => console.log(err));
+    let active = true;
+
+    const fetchData = async () => {
+      if (active) {
+        apiRequest('/api/traffic/occupancy')
+          .then(res => setOccupancy(res.data))
+          .catch(err => console.log(err));
+      }
+    }
+
+    fetchData();
+    return () => {
+      active = false;
+    }
   }, [])
 
   useEffect(() => {

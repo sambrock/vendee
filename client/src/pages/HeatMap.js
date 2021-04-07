@@ -23,18 +23,29 @@ const HeatMap = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    apiRequest(`/api/traffic/dwell-time`)
-      .then(res => {
-        setDwellTimes(res.data);
-        setLoading(false);
-      });
+    let active = true;
+
+    const fetchData = async () => {
+      if (active) {
+        apiRequest(`/api/traffic/dwell-time`)
+          .then(res => {
+            setDwellTimes(res.data);
+            setLoading(false);
+          });
+      }
+    }
+
+    fetchData();
+    return () => {
+      active = false;
+    }
   }, [])
 
 
   const handleSearch = () => {
     if (!date || DateTime.fromISO(date).toMillis() > Date.now()) {
       return setDate(DateTime.local().toISODate());
-  };
+    };
 
     setLoading(true);
 
@@ -58,7 +69,6 @@ const HeatMap = () => {
           <TextField
             id="date"
             type="date"
-            defaultValue={date}
             value={date}
             onChange={(e) => setDate(e.target.value)}
             InputLabelProps={{
