@@ -23,7 +23,7 @@ const ProductUnderperforming = () => {
 
   return (
     <TopPanel icon="thumb_down">
-      <div className="font-bold text-xl text-blackOpacity">Underperforming <span className="text-sm font-semibold">- Last hour</span></div>
+      <div className="font-bold text-xl text">Underperforming <span className="text-sm font-semibold">- Last hour</span></div>
       <div className="col-start-0 row-start-2 mt-2">
         <div className="flex flex-col">
           <div className="flex items-baseline">

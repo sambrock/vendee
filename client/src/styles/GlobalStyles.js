@@ -2,19 +2,19 @@ import { createGlobalStyle } from 'styled-components';
 
 import BarlowWoff2 from '../fonts/Barlow-Regular.woff2';
 import BarlowSemiBoldWoff2 from '../fonts/Barlow-SemiBold.woff2';
-import BarlowBoldWoff2 from '../fonts/Barlow-Bold.woff2';
+// import BarlowBoldWoff2 from '../fonts/Barlow-Bold.woff2';
 
 import BarlowEot from '../fonts/Barlow-Regular.eot';
 import BarlowSemiBoldEot from '../fonts/Barlow-SemiBold.eot';
-import BarlowBoldEot from '../fonts/Barlow-Bold.eot';
+// import BarlowBoldEot from '../fonts/Barlow-Bold.eot';
 
 import BarlowWoff from '../fonts/Barlow-Regular.woff';
 import BarlowSemiBoldWoff from '../fonts/Barlow-SemiBold.woff';
-import BarlowBoldWoff from '../fonts/Barlow-Bold.woff';
+// import BarlowBoldWoff from '../fonts/Barlow-Bold.woff';
 
 import BarlowOtf from '../fonts/Barlow-Regular.otf';
 import BarlowSemiBoldOtf from '../fonts/Barlow-SemiBold.otf';
-import BarlowBoldOtf from '../fonts/Barlow-Bold.otf';
+// import BarlowBoldOtf from '../fonts/Barlow-Bold.otf';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -33,15 +33,6 @@ const GlobalStyle = createGlobalStyle`
          url(${BarlowSemiBoldOtf}) format('otf'),
          url(${BarlowSemiBoldWoff}) format('woff');
     font-weight: 500;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: 'Barlow';
-    src: url(${BarlowBoldEot}) format('eot');
-    src: url(${BarlowBoldWoff2}) format('woff2'),
-         url(${BarlowBoldOtf}) format('otf'),
-         url(${BarlowBoldWoff}) format('woff');
-    font-weight: 600;
     font-style: normal;
   }
   
@@ -107,7 +98,7 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
     color: var(--blue);
-    font-weight: 600;
+    font-weight: 500;
     transition: all 0.15s var(--easing);
   }
 

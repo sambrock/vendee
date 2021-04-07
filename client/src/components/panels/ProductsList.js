@@ -30,7 +30,7 @@ const ProductsList = () => {
 
   const columns = [
     { field: 'name', headerName: 'Name', width: 300 },
-    { field: 'interactions', headerName: 'Interactions', width: 140, renderCell: (p) => <span>{new Intl.NumberFormat('en-EN').format(p.value)}</span> },
+    { field: 'interactions', headerName: 'Interactions', width: 140, renderCell: (p) => <span className="font-normal text-sm">{new Intl.NumberFormat('en-EN').format(p.value)}</span> },
     { field: 'price', headerName: 'Price', width: 100, renderCell: (p) => <PriceInput productId={p.row.id} price={p.value} /> },
     { field: 'change', headerName: 'Price Matched?', width: 170, renderCell: (p) => <RetailerPriceMatchTag change={p.row.change} direction={p.row.direction} />, },
     { field: 'dynamicPricing', headerName: 'Competitor Prices', renderCell: (p) => <RetailerPriceTagList price={p.row.price} dynamicPricing={p.row.dynamicPricing} />, width: 350 },
