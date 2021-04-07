@@ -18,7 +18,6 @@ app.use('/api/traffic', auth, require('./routes/api/traffic'));
 app.use('/api/products', auth, require('./routes/api/products'));
 app.use('/api/discounts', require('./routes/api/discounts'));
 
-
 // Connect to MongoDB
 mongoose.connect(process.env.DB_CONFIG, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
