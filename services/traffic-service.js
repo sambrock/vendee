@@ -1,4 +1,7 @@
+require('dotenv').config({ path: '../.env' });
 const { DateTime } = require("luxon");
+
+const d = DateTime.local().setZone(process.env.TIMEZONE);
 
 // Get traffic count
 const getTrafficByHour = (arr) => {
@@ -86,7 +89,7 @@ const getTrafficByWeek = arr => {
     if (Math.sign(calc) === -1) return total;
 
     // If day is greater than previous, push total to new array, start new total
-    if (DateTime.fromMillis(c.created_at).toISODate() === DateTime.local().minus({ days: days }).toISODate()) {
+    if (DateTime.fromMillis(c.created_at).toISODate() === d.minus({ days: days }).toISODate()) {
       return total + calc;
     } else {
       countPerDay.push(total + calc);
