@@ -3,7 +3,7 @@ import axios from 'axios';
 const local = 'http://localhost:3001';
 const prod = 'http://vendee-env.eba-s2pjt4wz.us-east-1.elasticbeanstalk.com';
 
-const baseURL = process.env.NODE_ENV === 'production' ? prod : local;
+const baseURL = prod;
 
 export const getAuthToken = async (password) => {
   try {

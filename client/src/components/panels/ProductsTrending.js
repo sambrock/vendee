@@ -1,4 +1,10 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+export const getTrendingProducts = (products) => {
+  return products
+    .sort((a, b) => b.interactionsToday - a.interactionsToday)
+    .splice(0, 5); // Limit to 5
+}
 
 const ProductsTrending = () => {
   const [products, setProducts] = useState(JSON.parse(localStorage.getItem('/api/products')))
@@ -8,16 +14,14 @@ const ProductsTrending = () => {
       const products = JSON.parse(localStorage.getItem('/api/products'));
 
       if (!products) return;
-      const trending = products
-        .sort((a, b) => b.interactionsToday - a.interactionsToday)
-        .splice(0, 5); // Limit to 5
+      const trending = getTrendingProducts(products);
 
       setProducts(trending);
     }, 1000);
     return () => clearInterval(interval);
   }, [])
 
-  if(!products) return <div></div>;
+  if (!products) return <div></div>;
 
   return (
     <div style={{ height: '90%' }}>

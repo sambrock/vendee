@@ -16,12 +16,18 @@ const Discount = ({ match }) => {
   }, [id])
 
   if (!discount) return <div></div>
+  if(discount && discount.expires < Date.now()) return <div>Expired</div>
+  if(discount && discount.starts > Date.now()) return <div>Scheduled.</div>
 
   return (
     <div className="flex justify-center h-screen">
-      <div className="flex flex-col h-2/3 p-6">
+      <div className="flex flex-col h-2/3 p-6 justify-center items-center">
         <h1 className="text-center mb-1">{discount.name}</h1>
         <h2 className="text-center">{discount.code}</h2>
+        <div className="w-1/2">
+          <span className="font-semibold">Products:</span>
+          <div className="w-text-center">{discount.products.length > 0 ? discount.products.map(p => p.name).join(', ') : 'All'}</div>
+        </div>
         <div className="px-12 mt-12 w-full items-center">
           <QRCode value={window.location.href} />
         </div>

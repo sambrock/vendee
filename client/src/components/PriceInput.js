@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 
 import { apiRequest } from '../api';
@@ -16,7 +17,7 @@ const PriceInput = ({ productId, price }) => {
     }
   }
 
-  return <input className="h-full  font-medium text-black" type="text" defaultValue={new Intl.NumberFormat('en-EN', { style: 'currency', currency: 'GBP' }).format(value)} onKeyUp={(e) => handleKeyUp(e)} />
+  return <input title="priceInput" className="price-input h-full font-medium text-black" type="text" defaultValue={new Intl.NumberFormat('en-EN', { style: 'currency', currency: 'GBP' }).format(value)} onKeyUp={(e) => handleKeyUp(e)} />
 };
 
 export default PriceInput;

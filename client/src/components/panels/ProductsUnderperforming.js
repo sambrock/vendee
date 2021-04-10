@@ -1,20 +1,24 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { apiRequest } from '../../api';
 
 const ProductsUnderperforming = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const interval = setInterval(async () => {
-      const products = JSON.parse(localStorage.getItem('/api/products'));
+    apiRequest('/api/products')
+      .then(res => setProducts(res.data));
 
-      if (!products) return;
-      const underperforming = products
-        .sort((a, b) => a.interactionsToday - b.interactionsToday)
-        .splice(0, 5); // Limit to 5
+    // const interval = setInterval(async () => {
+    //   const products = JSON.parse(localStorage.getItem('/api/products'));
 
-        setProducts(underperforming);
-    }, 1000);
-    return () => clearInterval(interval);
+    //   if (!products) return;
+    //   const underperforming = products
+    //     .sort((a, b) => a.interactionsToday - b.interactionsToday)
+    //     .splice(0, 5); // Limit to 5
+
+    //     setProducts(underperforming);
+    // }, 1000);
+    // return () => clearInterval(interval);
   }, [])
 
   return (
