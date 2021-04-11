@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import TopPanel from '../TopPanel';
+import { getTrending } from './ProductsTrending';
 
 const ProductsTrendingRightNow = () => {
   const [product, setProduct] = useState();
@@ -10,9 +11,7 @@ const ProductsTrendingRightNow = () => {
       const products = JSON.parse(localStorage.getItem('/api/products'));
 
       if (!products) return;
-      const trending = products
-        .sort((a, b) => b.interactionsHour - a.interactionsHour)
-        .splice(0, 5); // Limit to 5
+      const trending = getTrending(products);
 
       setProduct(trending[0]);
     }, 1000);

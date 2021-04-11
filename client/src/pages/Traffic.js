@@ -1,7 +1,8 @@
+import React from 'react';
 import styled from 'styled-components';
 
 import Panel from '../components/Panel';
-import Occupancy from '../components/Occupancy';
+import Occupancy from '../components/panels/Occupancy';
 import TrafficHours from '../components/panels/TrafficHours';
 import TrafficWeek from '../components/panels/TrafficWeek';
 import TrafficHighest from '../components/panels/TrafficHighest';

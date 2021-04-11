@@ -48,9 +48,9 @@ const GlobalStyle = createGlobalStyle`
     --default-black: rgba(0, 0, 0, 0.87);
     --black-opacity: rgba(0,0,0,.65);
     --black-opacity-2: rgba(0,0,0,.05);
-    --blue-opacity: rgba(74,79,246,.15);
+    --blue-opacity: rgba(74,79,246,.1);
     --blue-opacity-2: rgba(74,79,246,.55);
-    --white-opacity: rgba(255,255,255,.65);
+    --white-opacity: rgba(255,255,255,.95);
     --green-opacity: rgba(0,179,0,.15);
     --red-opacity: rgba(255,51,51,.15);
     --font-sans: 'Barlow', sans-serif;

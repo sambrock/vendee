@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import DiscountList from '../components/DiscountList';
-import Occupancy from '../components/Occupancy';
+import DiscountList from '../components/panels/DiscountList';
+import Occupancy from '../components/panels/Occupancy';
 import Panel from '../components/Panel';
 
 const StyledDiscountstsContainerDiv = styled.main`

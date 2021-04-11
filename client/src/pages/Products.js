@@ -8,7 +8,7 @@ import ProductsTrending from '../components/panels/ProductsTrending';
 import ProductsUnderperforming from '../components/panels/ProductsUnderperforming';
 import ProductsTrendingRightNow from '../components/panels/ProductTrendingRightNow';
 import ProductUnderperforming from '../components/panels/ProductUnderperforming';
-import Occupancy from "../components/Occupancy";
+import Occupancy from "../components/panels/Occupancy";
 
 const StyledProductsContainerDiv = styled.main`
   grid-template-rows: 9rem 1fr 1fr;

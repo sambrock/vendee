@@ -1,8 +1,8 @@
+import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import { DateTime } from 'luxon';
-import { useEffect, useState } from 'react';
 
-import { apiRequest } from '../api';
+import { apiRequest } from '../../api';
 
 const DiscountList = () => {
   const [discounts, setDiscounts] = useState(JSON.parse(localStorage.getItem('/api/discounts')));
@@ -32,9 +32,9 @@ const DiscountList = () => {
     {
       field: 'value', headerName: 'Amount', width: 120, renderCell: (p) => {
         if (p.value > 1) {
-          return <span>{new Intl.NumberFormat('en-EN', { style: 'currency', currency: 'GBP' }).format(p.value)}</span>
+          return <span className="text-sm">{new Intl.NumberFormat('en-EN', { style: 'currency', currency: 'GBP' }).format(p.value)}</span>
         } else {
-          return <span>{p.value * 100}%</span>
+          return <span className="text-sm">{p.value * 100}%</span>
         }
       }
     },
@@ -45,8 +45,8 @@ const DiscountList = () => {
         if (p.row.starts > Date.now()) return <span className="flex items-center p-1 text-blackOpacity px-2 h-8 font-semibold rounded-md">Scheduled</span>
       }
     },
-    { field: 'created_at', headerName: 'Starts', width: 120, renderCell: (p) => <span>{DateTime.fromMillis(p.row.starts).toLocaleString(DateTime.DATE_MED)}</span> },
-    { field: 'expires', headerName: 'Expires', width: 120, renderCell: (p) => <span>{DateTime.fromMillis(p.row.expires).toLocaleString(DateTime.DATE_MED)}</span> },
+    { field: 'created_at', headerName: 'Starts', width: 120, renderCell: (p) => <span className="text-sm">{DateTime.fromMillis(p.row.starts).toLocaleString(DateTime.DATE_MED)}</span> },
+    { field: 'expires', headerName: 'Expires', width: 120, renderCell: (p) => <span className="text-sm">{DateTime.fromMillis(p.row.expires).toLocaleString(DateTime.DATE_MED)}</span> },
     {
       field: 'products', headerName: 'Products', width: 800, renderCell: (p) => {
         if (p.row.products.length === 0) return <span className="text-xxl">*</span>

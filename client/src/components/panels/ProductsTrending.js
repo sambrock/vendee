@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-export const getTrendingProducts = (products) => {
+export const getTrending = (products) => {
   return products
     .sort((a, b) => b.interactionsToday - a.interactionsToday)
     .splice(0, 5); // Limit to 5
@@ -14,7 +14,7 @@ const ProductsTrending = () => {
       const products = JSON.parse(localStorage.getItem('/api/products'));
 
       if (!products) return;
-      const trending = getTrendingProducts(products);
+      const trending = getTrending(products);
 
       setProducts(trending);
     }, 1000);

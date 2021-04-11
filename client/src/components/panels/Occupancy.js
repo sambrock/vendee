@@ -1,8 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 
-import { apiRequest } from '../api'
-import TopPanel from './TopPanel';
+import { apiRequest } from '../../api'
+import TopPanel from '../TopPanel';
 
 export default function Occupancy() {
   const [occupancy, setOccupancy] = useState(JSON.parse(localStorage.getItem('/api/traffic/occupancy')));

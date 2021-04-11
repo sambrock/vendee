@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+
 import { apiRequest } from '../../api';
+import { getUnderperforming } from './ProductUnderperforming';
 
 const ProductsUnderperforming = () => {
   const [products, setProducts] = useState([]);
@@ -8,17 +10,15 @@ const ProductsUnderperforming = () => {
     apiRequest('/api/products')
       .then(res => setProducts(res.data));
 
-    // const interval = setInterval(async () => {
-    //   const products = JSON.parse(localStorage.getItem('/api/products'));
+    const interval = setInterval(async () => {
+      const products = JSON.parse(localStorage.getItem('/api/products'));
 
-    //   if (!products) return;
-    //   const underperforming = products
-    //     .sort((a, b) => a.interactionsToday - b.interactionsToday)
-    //     .splice(0, 5); // Limit to 5
+      if (!products) return;
+      const underperforming = getUnderperforming(products);
 
-    //     setProducts(underperforming);
-    // }, 1000);
-    // return () => clearInterval(interval);
+        setProducts(underperforming);
+    }, 1000);
+    return () => clearInterval(interval);
   }, [])
 
   return (

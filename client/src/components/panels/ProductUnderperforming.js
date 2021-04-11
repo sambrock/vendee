@@ -2,6 +2,13 @@ import React, { useEffect, useState } from 'react';
 
 import TopPanel from '../TopPanel';
 
+export const getUnderperforming = (products) => {
+  return products
+  .sort((a, b) => a.interactionsHour - b.interactionsHour)
+  .splice(0, 5); // Limit to 5
+}
+
+
 const ProductUnderperforming = () => {
   const [product, setProduct] = useState(JSON.parse(localStorage.getItem('/api/products')))
 
@@ -10,9 +17,7 @@ const ProductUnderperforming = () => {
       const products = JSON.parse(localStorage.getItem('/api/products'));
 
       if (!products) return;
-      const underperforming = products
-        .sort((a, b) => a.interactionsHour - b.interactionsHour)
-        .splice(0, 5); // Limit to 5
+      const underperforming = getUnderperforming(products);
 
       setProduct(underperforming[0]);
     }, 1000);

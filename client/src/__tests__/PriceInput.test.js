@@ -11,11 +11,20 @@ it('input renders', () => {
   expect(input).toBeTruthy();
 });
 
+it('input value not undefined', () => {
+  const { queryByTitle } = render(<PriceInput />);
+  const input = queryByTitle('priceInput');
+
+  expect(input.innerHTML).toBeDefined();
+})
+
 describe('price inputs not empty', () => {
-  it("onKeyUp", () => {
+  it("onChange", () => {
     const { queryByTitle } = render(<PriceInput />);
     const input = queryByTitle('priceInput');
 
-    expect(input.innerHTML).toBeDefined();
+    fireEvent.change(input, { target: { value: '1.20' } });
+
+    expect(input.value).toBe('1.20')
   })
 })
