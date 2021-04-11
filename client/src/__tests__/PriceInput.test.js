@@ -18,7 +18,7 @@ it('input value not undefined', () => {
   expect(input.innerHTML).toBeDefined();
 })
 
-describe('price inputs not empty', () => {
+describe('price inputs updates', () => {
   it("onChange", () => {
     const { queryByTitle } = render(<PriceInput />);
     const input = queryByTitle('priceInput');
