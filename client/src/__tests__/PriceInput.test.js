@@ -15,7 +15,7 @@ it('input value not undefined', () => {
   const { queryByTitle } = render(<PriceInput />);
   const input = queryByTitle('priceInput');
 
-  expect(input.innerHTML).toBeDefined();
+  expect(input.value).toBeDefined();
 })
 
 describe('price inputs updates', () => {
@@ -28,3 +28,5 @@ describe('price inputs updates', () => {
     expect(input.value).toBe('1.20')
   })
 })
+
+
