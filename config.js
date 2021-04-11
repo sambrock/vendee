@@ -11,9 +11,9 @@ const config = {
   },
 
   dtype: 'int32',
-  min_score: 0.5,
+  min_score: 0.70,
   max_results: 50,
-  iou_threshold: 0.1,
+  iou_threshold: 0.4,
 
   cameras: [
     { id: 1, stream: 'http://192.168.0.33:8080/?action=snapshot' },

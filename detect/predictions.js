@@ -1,29 +1,23 @@
 require('dotenv').config({ path: '../.env' });
 const axios = require('axios');
-const { DateTime } = require('luxon');
 
 const baseURL = process.env.NODE_ENV === 'production' ? process.env.PROD_URL : process.env.LOCAL_URL;
 
 const processProducts = (predictions) => {
-  // console.log('Products:', predictions);
   if (predictions.length === 0) return;
 
   // Save interaction
   predictions.forEach(async p => {
     await axios({ method: 'post', url: `${baseURL}/api/products/${p.classId}/interaction`, headers: { 'x-auth-token': process.env.TOKEN } });
   })
+
+  console.log('Products:', predictions);
 }
 
 const processTraffic = async (predictions, camId) => {
-  const today = DateTime.local();
   const count = predictions.reduce((a, v) => (v.class === 'person' ? a + 1 : a), 0);
 
-  const data = {
-    camId,
-    time: today.toISO(),
-    day: today.toISODate(),
-    hour: today.toObject().hour
-  }
+  const data = { camId };
 
   // Send 0 if no persons detected
   if (predictions.length === 0) {
