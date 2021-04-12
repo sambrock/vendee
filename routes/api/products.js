@@ -7,7 +7,6 @@ const { getInteractionsNum, getDynamicPricing } = require('../../services/produc
 
 const router = express.Router();
 
-const d = DateTime.local().setZone(process.env.TIMEZONE);
 
 // @route   GET api/products
 // @desc    List all products
@@ -61,6 +60,8 @@ router.put('/update/:id', async (req, res) => {
 // @desc    Add an interaction for a product
 // @access  Private
 router.post('/:id/interaction', async (req, res) => {
+  const d = DateTime.local().setZone(process.env.TIMEZONE);
+
   const { id } = req.params;
 
   const product = await Product.findOne({ productId: id });

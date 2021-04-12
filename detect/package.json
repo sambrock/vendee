@@ -12,6 +12,7 @@
   "dependencies": {
     "@tensorflow/tfjs-node-gpu": "^3.3.0",
     "axios": "^0.21.1",
+    "canvas": "^2.7.0",
     "dotenv": "^8.2.0",
     "luxon": "^1.26.0"
   }

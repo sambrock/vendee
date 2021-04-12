@@ -1,10 +1,10 @@
 require('dotenv').config({ path: '../.env' });
 const { DateTime } = require("luxon");
 
-const d = DateTime.local().setZone(process.env.TIMEZONE);
 
 // Get traffic count
 const getTrafficByHour = (arr) => {
+  const d = DateTime.local().setZone(process.env.TIMEZONE);
   const hours = [];
 
   let index = 0;
@@ -76,6 +76,8 @@ const getDwellTime = (arr) => {
 };
 
 const getTrafficByWeek = arr => {
+  const d = DateTime.local().setZone(process.env.TIMEZONE);
+
   const countPerDay = [];
 
   let days = 0;

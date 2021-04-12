@@ -8,9 +8,6 @@ const router = express.Router();
 
 const cams = 10;
 
-const d = DateTime.local().setZone(process.env.TIMEZONE);
-const today = d.minus({ hours: d.toObject().hour });
-
 // @route   POST api/traffic
 // @desc    Add camera traffic
 // @access  Private
@@ -31,6 +28,9 @@ router.post('/:id', async (req, res) => {
 // @desc    Get live occupancy for all cameras
 // @access  Private
 router.get('/occupancy', async (req, res) => {
+  const d = DateTime.local().setZone(process.env.TIMEZONE);
+  const today = d.minus({ hours: d.toObject().hour });
+
   const traffic = await Traffic.find({ created_at: { $gt: today.toMillis(), $lt: Date.now() } }).sort({ created_at: -1 });
 
   const occupancy = getOccupancy(traffic, cams);
@@ -42,6 +42,8 @@ router.get('/occupancy', async (req, res) => {
 // @desc    Get traffic for this and last week
 // @access  Private
 router.get('/week', async (req, res) => {
+  const d = DateTime.local().setZone(process.env.TIMEZONE);
+  
   const twoweeksago = d.minus({ days: 14, hours: d.toObject().hour }).toMillis();
 
   const traffic = await Traffic.find({ created_at: { $gt: twoweeksago, $lt: Date.now(), } }).sort({ created_at: -1 });
@@ -55,6 +57,9 @@ router.get('/week', async (req, res) => {
 // @desc    Get traffic at each hour
 // @access  Private 
 router.get('/hour', async (req, res) => {
+  const d = DateTime.local().setZone(process.env.TIMEZONE);
+  const today = d.minus({ hours: d.toObject().hour });
+
   const traffic = await Traffic.find({ created_at: { $gt: today.toMillis(), $lt: Date.now() } }).sort({ created_at: -1 })
 
   const trafficByHour = getTrafficByHour(traffic);
@@ -66,6 +71,9 @@ router.get('/hour', async (req, res) => {
 // @desc    Get total traffic for today and percentage change
 // @access  Private
 router.get('/today', async (req, res) => {
+  const d = DateTime.local().setZone(process.env.TIMEZONE);
+  const today = d.minus({ hours: d.toObject().hour });
+
   const trafficToday = await Traffic.find({ created_at: { $gt: today.toMillis(), $lt: d.toMillis() } }).sort({ created_at: -1 });
   const tafficYesterday = await Traffic.find({ created_at: { $gt: today.minus({ day: 1 }).toMillis(), $lt: today.toMillis() } }).sort({ created_at: -1 });
 
@@ -78,13 +86,16 @@ router.get('/today', async (req, res) => {
 // @desc    Get average standing time from each camera
 // @access  Private
 router.get('/dwell-time', async (req, res) => {
+  const d = DateTime.local().setZone(process.env.TIMEZONE);
+  const today = d.minus({ hours: d.toObject().hour });
+
   const { date } = req.query;
 
   const gt = date ? DateTime.fromISO(date).toMillis() : today.toMillis();
   const lt = date ? DateTime.fromISO(date).plus({ day: 1 }).toMillis() : Date.now();
 
   const traffic = await Traffic.find({ created_at: { $gt: gt, $lt: lt } });
-  if(traffic.length === 0) return res.sendStatus(400);
+  if (traffic.length === 0) return res.sendStatus(400);
 
   const cameraTraffic = [];
 
