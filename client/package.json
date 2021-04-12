@@ -30,6 +30,7 @@
     "react-spinners": "^0.10.6",
     "styled-components": "^5.2.1",
     "svg-pan-zoom": "github:ariutta/svg-pan-zoom",
+    "twin.macro": "^2.3.2",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
