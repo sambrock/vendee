@@ -56,7 +56,6 @@
     ]
   },
   "devDependencies": {
-    "ts-jest": "^26.5.4",
     "@babel/preset-react": "^7.13.13",
     "@tailwindcss/postcss7-compat": "^2.0.3",
     "@testing-library/react": "^11.2.6",
@@ -65,6 +64,7 @@
     "enzyme": "^3.11.0",
     "jest": "^26.6.0",
     "postcss": "^7.0.35",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3",
+    "ts-jest": "^26.5.4"
   }
 }
