@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Occupancy from "../components/Occupancy";
+import Occupancy from "../components/panels/Occupancy";
 import Panel from "../components/Panel";
 import ProductsList from "../components/panels/ProductsList";
 import ProductsTrending from "../components/panels/ProductsTrending";
