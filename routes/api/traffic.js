@@ -43,7 +43,7 @@ router.get('/occupancy', async (req, res) => {
 // @access  Private
 router.get('/week', async (req, res) => {
   const d = DateTime.local().setZone(process.env.TIMEZONE);
-  
+
   const twoweeksago = d.minus({ days: 14, hours: d.toObject().hour }).toMillis();
 
   const traffic = await Traffic.find({ created_at: { $gt: twoweeksago, $lt: Date.now(), } }).sort({ created_at: -1 });
@@ -64,7 +64,7 @@ router.get('/hour', async (req, res) => {
 
   const trafficByHour = getTrafficByHour(traffic);
 
-  res.send(trafficByHour);
+  res.send(trafficByHour.filter(function () { return true }));
 });
 
 // @route   GET api/traffic/today

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const local = 'http://localhost:3001';
+// const local = 'http://localhost:3001';
 const prod = 'http://vendee-env.eba-s2pjt4wz.us-east-1.elasticbeanstalk.com';
 
 const baseURL = prod;
