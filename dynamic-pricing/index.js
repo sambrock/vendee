@@ -13,7 +13,12 @@ const dynamicPricing = async () => {
       const priceString = await checkPrice(dynamicPricing.url, dynamicPricing.element);
       console.log(product.name, dynamicPricing.retailer, priceString);
 
-      if (priceString) axios({ method: 'put', url: `${process.env.PROD_URL}/api/products/${product.productId}/dynamic-pricing`, data: { retailer: dynamicPricing.retailer, price: parseFloat(priceString.substring(1)) }, headers: { 'x-auth-token': process.env.TOKEN } })
+      if (priceString) axios({
+        method: 'put',
+        url: `${process.env.PROD_URL}/api/products/${product.productId}/dynamic-pricing`,
+        data: { retailer: dynamicPricing.retailer, price: parseFloat(priceString.substring(1)) },
+        headers: { 'x-auth-token': process.env.TOKEN }
+      })
       continue;
     }
   }
@@ -27,4 +32,3 @@ setInterval(async () => {
   dynamicPricing();
 }, 3600000) // 1 hour
 
-// module.exports = { dynamicPricing }
