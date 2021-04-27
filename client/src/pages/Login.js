@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import styled from 'styled-components';
 
-import { apiRequest, getAuthToken } from '../api';
+import { getAuthToken } from '../api';
 import Header from '../components/layout/Header';
 import Logo from '../images/logo-w.svg'
 
@@ -43,11 +43,6 @@ const Login = () => {
 
     return localStorage.setItem('x-auth-token', token);
   }
-
-  useEffect(() => {
-    apiRequest('/api/products')
-    .catch(err => console.log(err));
-  }, []);
 
   if (authed) return <Redirect to="/dashboard" />
 
