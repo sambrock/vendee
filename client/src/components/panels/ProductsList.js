@@ -26,6 +26,14 @@ const ProductsList = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const result = await apiRequest('/api/products');
+      if (result) setProducts(result.data);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, [])
+
   if (!products) return <div></div>;
 
   const columns = [
