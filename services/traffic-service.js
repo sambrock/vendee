@@ -121,7 +121,7 @@ const getOccupancy = (arr, cams) => {
     latestCount.push(first);
   }
 
-  return latestCount.filter(() => { return true }).reduce((a, b) => ({ count: a.count + b.count }));
+  return latestCount.filter(function(el) { return el; }).filter(() => { return true }).reduce((a, b) => ({ count: a.count + b.count }));
 }
 
 module.exports = { getTrafficByHour, getTotalCountPerDay, getDwellTime, getTrafficByWeek, getTrafficDayChange, getOccupancy };
