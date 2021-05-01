@@ -4,7 +4,8 @@ const axios = require('axios');
 const { checkPrice } = require('./parser');
 
 const dynamicPricing = async () => {
-  const products = await axios({ method: 'get', url: `${process.env.PROD_URL}/api/products`, headers: { 'x-auth-token': process.env.TOKEN } });
+  const url = process.env.NODE_ENV === 'production' ? process.env.PROD_URL : process.env.LOCAL_URL;
+  const products = await axios({ method: 'get', url: `${url}/api/products`, headers: { 'x-auth-token': process.env.TOKEN } });
 
   console.log('Starting dynamic pricing...');
 
@@ -15,7 +16,7 @@ const dynamicPricing = async () => {
 
       if (priceString) axios({
         method: 'put',
-        url: `${process.env.PROD_URL}/api/products/${product.productId}/dynamic-pricing`,
+        url: `${url}/api/products/${product.productId}/dynamic-pricing`,
         data: { retailer: dynamicPricing.retailer, price: parseFloat(priceString.substring(1)) },
         headers: { 'x-auth-token': process.env.TOKEN }
       })
