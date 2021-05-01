@@ -63,16 +63,17 @@ router.post('/:id/interaction', async (req, res) => {
   const d = DateTime.local().setZone(process.env.TIMEZONE);
 
   const { id } = req.params;
+  const { created_at } = req.body;
 
   const product = await Product.findOne({ productId: id });
 
   const previousInteraction = product.interactions[product.interactions.length - 1];
 
   if (previousInteraction) {
-    if (DateTime.fromJSDate(previousInteraction.created_at).toMillis() > d.minus({ seconds: 20 }).toMillis()) return res.sendStatus(208); // If interaction created in the last 20 seconds, skip
+    if (previousInteraction.created_at > d.minus({ seconds: 10 }).toMillis()) return res.sendStatus(208); // If interaction created in the last 20 seconds, skip
   }
 
-  product.interactions.push({ interaction: true });
+  product.interactions.push({ created_at });
   await product.save();
 
   res.send(product);

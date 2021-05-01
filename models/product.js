@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
+const { DateTime } = require('luxon');
 
 const interactionSchema = new mongoose.Schema({
   created_at: {
     type: Number,
-    required: true,
-    default: Date.now()
+    required: true
   }
 });
 

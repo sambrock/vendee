@@ -10,6 +10,11 @@ setInterval(() => {
     // Import the module
     const LCD = require('raspberrypi-liquid-crystal');
 
+    const message = () => {
+      if(product.price > product.dynamicPricing[0].price) return product.price.toFixed(2);
+      return `${product.price.toFixed(2)} -${product.change}% ${product.dynamicPricing[0].retailer}`;
+    }
+
     // Instantiate the LCD object on bus 1 address 3f with 16 chars width and 2 lines
     const lcd = new LCD(1, 0x27, 16, 2);
     // Init the lcd (must be done before calling any other methods)
@@ -18,6 +23,6 @@ setInterval(() => {
     lcd.clearSync();
     // Display text multiline
     lcd.printLineSync(0, product.name);
-    lcd.printLineSync(1, `${product.price.toFixed(2)} -${product.change}% ${product.dynamicPricing[0].retailer}`);
+    lcd.printLineSync(1, message());
   });
 }, 15000);

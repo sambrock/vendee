@@ -13,12 +13,12 @@ const cams = 10;
 // @access  Private
 router.post('/:id', async (req, res) => {
   const { id } = req.params;
-  const { count } = req.body;
+  const { count, created_at } = req.body;
 
   const data = await Traffic.findOne({ cam_id: id }).sort({ _id: -1 });
   if (data) { if (data.count === count) return res.sendStatus(208); } // Skip if same as previous count
 
-  const traffic = new Traffic({ cam_id: id, count });
+  const traffic = new Traffic({ cam_id: id, count, created_at });
   traffic.save();
 
   res.sendStatus(200);
@@ -32,11 +32,13 @@ router.get('/occupancy', async (req, res) => {
   const today = d.minus({ hours: d.toObject().hour });
 
   const traffic = await Traffic.find({ created_at: { $gt: today.toMillis(), $lt: Date.now() } }).sort({ created_at: -1 });
+  // console.log(traffic);
+  if(traffic.length === 0) return res.send([]);
 
   const occupancy = getOccupancy(traffic, cams);
 
   res.send(occupancy);
-});
+}); 
 
 // @route   GET api/traffic/week
 // @desc    Get traffic for this and last week

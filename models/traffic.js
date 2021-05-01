@@ -13,8 +13,7 @@ const trafficSchema = new mongoose.Schema({
   },
   created_at: {
     type: Number,
-    required: true,
-    default: Date.now()
+    required: true
   },
 });
 
